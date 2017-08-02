@@ -145,7 +145,7 @@ void rlft3(float  *** data, float  ** speq, unsigned long nn1, unsigned long nn2
 // PNG functions
 ////////////////////////////////////////////////////////////////
 void read_png_file(int * width, int * height,
-png_byte * color_type, png_byte * bit_depth, png_bytep *row_pointers)
+png_byte * color_type, png_byte * bit_depth, png_bytep **row_pointers)
 {
   printf("\nLeitura de imagem PNG");
   FILE *fp = fopen("lenna.png", "rb");
@@ -199,14 +199,14 @@ png_byte * color_type, png_byte * bit_depth, png_bytep *row_pointers)
   printf("\n--Realizando o Upgrade de informação");
   png_read_update_info(png, info);
 
-  row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * * height);
+  *row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * * height);
 
   for(int y = 0; y < * height; y++) {
-    row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png,info));
+    (*row_pointers)[y] = (png_byte*)malloc(png_get_rowbytes(png,info));
   }
 
-  printf("\n--Lendo os dados");
-  png_read_image(png, row_pointers);
+  png_read_image(png, *row_pointers);
+  printf("\n--Dados lidos com sucesso.");
 
   fclose(fp);
 }
@@ -276,15 +276,14 @@ void copy_png_to_float(int height, int width, png_bytep *row_pointers, float ***
 {
   png_byte* row; int col_pos = 0, row_pos = 0;
 
-  for (row_pos=0; row_pos < height; row_pos++) {
-    //row = row_pointers[row_pos];
+  for (row_pos=0; row_pos < 1; row_pos++) {
+    row = row_pointers[row_pos];
 
-    printf("%d:%d\n", row_pos, row_pointers[row_pos]);
+    for (col_pos=0; col_pos < width; col_pos++) {
 
-    /*for (col_pos=0; col_pos < width; col_pos++) {
-
+      //printf("%d:%d!%d\n", row_pos, col_pos, row[col_pos]);
       data[row_pos][col_pos][0] = (float) row[col_pos];
-    }*/
+    }
   }
 }
 
@@ -303,10 +302,10 @@ int main(void)
   png_bytep *row_pointers = 0;
   //const char * file_name = "lenna.png\0";
 
-  read_png_file(& img_width, & img_height, & color_type, & bit_depth, row_pointers);
+  read_png_file(& img_width, & img_height, & color_type, & bit_depth, & row_pointers);
 
   printf("\nExecutando f3tensor");
-  data = f3tensor(1, img_width, 1, img_height, 1, 1);
+  data = f3tensor(1, img_width, 1, img_height, 1, 2);
 
   printf("\nExecutando matrix");
   speq = matrix(1, img_width, 1, 2 * img_height);
