@@ -84,7 +84,7 @@ void rlft3(float  *** data, float  ** speq, unsigned long nn1, unsigned long nn2
   double theta, wi, wpi, wpr, wr, wtemp;
   float c1, c2, h1r, h1i, h2r, h2i;
 
-  if (1 + &data[nn1][nn2][nn3]-&data[1][1][1] ! =  nn1 * nn2 * nn3)
+  if (1 + &data[nn1][nn2][nn3]-&data[1][1][1] !=  nn1 * nn2 * nn3)
     nrerror("rlft3: problem with dimensions or contiguity of data array\n");
   c1 = 0.5;
   c2 = -0.5 * isign;
@@ -274,17 +274,17 @@ void process_file(int height, int width, png_bytep *row_pointers)
 
 void copy_png_to_float(int height, int width, png_bytep *row_pointers, float *** data)
 {
-  png_byte* row; int x = 0, y = 0;
+  png_byte* row; int col_pos = 0, row_pos = 0;
 
-  for (y=0; y<height; y++) {
-    row = row_pointers[y];
+  for (row_pos=0; row_pos < height; row_pos++) {
+    //row = row_pointers[row_pos];
 
-    for (x=0; x<width; x++) {
+    printf("%d:%d\n", row_pos, row_pointers[row_pos]);
 
-      row[x];
-      printf("%c", row[x]);
-      //printf("\nPixel at position [ %d - %d ] has RGBA values: %c", x, y, (unsigned char) 0);
-    }
+    /*for (col_pos=0; col_pos < width; col_pos++) {
+
+      data[row_pos][col_pos][0] = (float) row[col_pos];
+    }*/
   }
 }
 
@@ -294,14 +294,13 @@ void copy_png_to_float(int height, int width, png_bytep *row_pointers, float ***
 ////////////////////////////////////////////////////////////////
 int main(void)
 {
-  int j = 0;
   float *** data = 0, ** speq = 0;
 
   // PNG
-  int img_width, img_height;
-  png_byte color_type;
-  png_byte bit_depth;
-  png_bytep *row_pointers;
+  int img_width = 0, img_height = 0;
+  png_byte color_type = 0;
+  png_byte bit_depth = 0;
+  png_bytep *row_pointers = 0;
   //const char * file_name = "lenna.png\0";
 
   read_png_file(& img_width, & img_height, & color_type, & bit_depth, row_pointers);
