@@ -183,32 +183,50 @@ and ncol=nch-ncl+1. The routine should be called with the address
 float ***f3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
 /* allocate a float 3tensor with range t[nrl..nrh][ncl..nch][ndl..ndh] */
 {
-	long i,j,nrow=nrh-nrl+1,ncol=nch-ncl+1,ndep=ndh-ndl+1;
+	long i, j,
+	nrow = nrh - nrl + 1,
+	ncol = nch - ncl + 1,
+	ndep = ndh - ndl + 1;
 	float ***t;
 
-	/* allocate pointers to pointers to rows */
-	t=(float ***) malloc((size_t)((nrow+NR_END)*sizeof(float**)));
+	/*
+	// allocate pointers to pointers to rows /
+	t = (float ***) malloc((size_t)((nrow+NR_END)*sizeof(float**)));
 	if (!t) nrerror("allocation failure 1 in f3tensor()");
 	t += NR_END;
 	t -= nrl;
 
-	/* allocate pointers to rows and set pointers to them */
-	t[nrl]=(float **) malloc((size_t)((nrow*ncol+NR_END)*sizeof(float*)));
+	// allocate pointers to rows and set pointers to them /
+	t[nrl] = (float **) malloc((size_t)((nrow*ncol+NR_END)*sizeof(float*)));
 	if (!t[nrl]) nrerror("allocation failure 2 in f3tensor()");
 	t[nrl] += NR_END;
 	t[nrl] -= ncl;
 
-	/* allocate rows and set pointers to them */
-	t[nrl][ncl]=(float *) malloc((size_t)((nrow*ncol*ndep+NR_END)*sizeof(float)));
+	// allocate rows and set pointers to them /
+	t[nrl][ncl] = (float *) malloc((size_t)((nrow*ncol*ndep+NR_END)*sizeof(float)));
 	if (!t[nrl][ncl]) nrerror("allocation failure 3 in f3tensor()");
 	t[nrl][ncl] += NR_END;
 	t[nrl][ncl] -= ndl;
 
-	for(j=ncl+1;j<=nch;j++) t[nrl][j]=t[nrl][j-1]+ndep;
-	for(i=nrl+1;i<=nrh;i++) {
-		t[i]=t[i-1]+ncol;
-		t[i][ncl]=t[i-1][ncl]+ncol*ndep;
-		for(j=ncl+1;j<=nch;j++) t[i][j]=t[i][j-1]+ndep;
+	for(j = ncl + 1; j <= nch; j++)
+		t[nrl][j] = t[nrl][j - 1] + ndep;
+
+	for(i = nrl + 1; i <= nrh; i++) {
+		t[i] = t[i - 1] + ncol;
+		t[i][ncl] = t[i - 1][ncl] + ncol * ndep;
+		for(j = ncl + 1; j <= nch; j++)
+			t[i][j] = t[i][j - 1] + ndep;
+	}
+  */
+
+	t = (float ***) malloc( (size_t) ((nrow + NR_END) * sizeof(float **)));
+
+	for (i = 0; i < nrow + NR_END; i++) {
+		t[i] = (float **) malloc( (size_t) ((ncol + NR_END) * sizeof(float *)));
+
+		for (j = 0; j < ncol + NR_END; j++) {
+			t[i][j] = (float *) malloc( (size_t) ((ndep + NR_END) * sizeof(float)));
+		}
 	}
 
 	/* return pointer to array of pointers to rows */

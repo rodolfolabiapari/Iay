@@ -77,40 +77,43 @@ void fourn(float data[], unsigned long nn[], int ndim, int isign)
 #undef SWAP
 
 
-void rlft3(float  *** data, float  ** speq, unsigned long nn1, unsigned long nn2,
-  unsigned long nn3,  int isign)
+void rlft3(float  *** data, float  ** speq, unsigned long heigth, unsigned long width,
+  unsigned long dim,  int isign)
 {
   unsigned long i1, i2, i3, j1, j2, j3, nn[4], ii3;
   double theta, wi, wpi, wpr, wr, wtemp;
   float c1, c2, h1r, h1i, h2r, h2i;
 
-  if (1 + &data[nn1][nn2][nn3]-&data[1][1][1] !=  nn1 * nn2 * nn3)
-    nrerror("rlft3: problem with dimensions or contiguity of data array\n");
+  /*printf("%d:%d\n", 1 + &data[heigth][width][dim]-&data[1][1][1], heigth * width * dim);
+
+  if (1 + &data[heigth][width][dim]-&data[1][1][1] !=  heigth * width * dim) {
+    nrerror("rlft3: problem with dimensions or contiguity of data array\n\n");
+  }*/
   c1 = 0.5;
   c2 = -0.5 * isign;
-  theta = isign * (6.28318530717959/nn3);
+  theta = isign * (6.28318530717959/dim);
   wtemp = sin(0.5 * theta);
   wpr = -2.0 * wtemp * wtemp;
   wpi = sin(theta);
-  nn[1] = nn1;
-  nn[2] = nn2;
-  nn[3] = nn3 >> 1;
+  nn[1] = heigth;
+  nn[2] = width;
+  nn[3] = dim >> 1;
   if (isign == 1) {
     fourn(&data[1][1][1] - 1, nn, 3, isign);
-    for (i1 = 1; i1 <= nn1; i1++)
-      for (i2 = 1, j2 = 0; i2 <= nn2; i2++) {
+    for (i1 = 1; i1 <= heigth; i1++)
+      for (i2 = 1, j2 = 0; i2 <= width; i2++) {
         speq[i1][++j2] = data[i1][i2][1];
         speq[i1][++j2] = data[i1][i2][2];
       }
   }
-  for (i1 = 1; i1 <= nn1; i1++) {
-    j1 = (i1 !=  1 ? nn1 - i1 + 2 : 1);
+  for (i1 = 1; i1 <= heigth; i1++) {
+    j1 = (i1 !=  1 ? heigth - i1 + 2 : 1);
     wr = 1.0;
     wi = 0.0;
-    for (ii3 = 1, i3 = 1; i3 <= (nn3 >> 2) + 1; i3++, ii3 += 2) {
-      for (i2 = 1; i2 <= nn2; i2++) {
+    for (ii3 = 1, i3 = 1; i3 <= (dim >> 2) + 1; i3++, ii3 += 2) {
+      for (i2 = 1; i2 <= width; i2++) {
         if (i3 == 1) {
-          j2 = (i2 !=  1 ? ((nn2-i2)<<1)+3 : 1);
+          j2 = (i2 !=  1 ? ((width-i2)<<1)+3 : 1);
           h1r = c1 * (data[i1][i2][1]+speq[j1][j2]);
           h1i = c1 * (data[i1][i2][2]-speq[j1][j2+1]);
           h2i = c2 * (data[i1][i2][1]-speq[j1][j2]);
@@ -120,8 +123,8 @@ void rlft3(float  *** data, float  ** speq, unsigned long nn1, unsigned long nn2
           speq[j1][j2] = h1r-h2r;
           speq[j1][j2+1] = h2i-h1i;
         } else {
-          j2 = (i2 !=  1 ? nn2-i2+2 : 1);
-          j3 = nn3+3-(i3<<1);
+          j2 = (i2 !=  1 ? width-i2+2 : 1);
+          j3 = dim+3-(i3<<1);
           h1r = c1 * (data[i1][i2][ii3]+data[j1][j2][j3]);
           h1i = c1 * (data[i1][i2][ii3+1]-data[j1][j2][j3+1]);
           h2i = c2 * (data[i1][i2][ii3]-data[j1][j2][j3]);
@@ -147,8 +150,8 @@ void rlft3(float  *** data, float  ** speq, unsigned long nn1, unsigned long nn2
 void read_png_file(int * width, int * height,
 png_byte * color_type, png_byte * bit_depth, png_bytep **row_pointers)
 {
-  printf("\nLeitura de imagem PNG");
-  FILE *fp = fopen("lenna.png", "rb");
+  printf("Leitura de imagem PNG\n");
+  FILE *fp = fopen("lenna.png", "rb\n");
 
   png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
   if(!png) abort();
@@ -167,12 +170,12 @@ png_byte * color_type, png_byte * bit_depth, png_bytep **row_pointers)
   *color_type = png_get_color_type(png, info);
   *bit_depth  = png_get_bit_depth(png, info);
 
-  printf("\n----Width:%d  Height:%d", *width, *height);
+  printf("----Width:%d  Height:%d\n", *width, *height);
 
   // Read any color_type into 8bit depth, RGBA format.
   // See http://www.libpng.org/pub/png/libpng-manual.txt
 
-  printf("\n--Vefificando informações da imagem");
+  printf("--Vefificando informações da imagem\n");
   if(*bit_depth  == 16)
     png_set_strip_16(png);
 
@@ -196,7 +199,7 @@ png_byte * color_type, png_byte * bit_depth, png_bytep **row_pointers)
      *color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
     png_set_gray_to_rgb(png);*/
 
-  printf("\n--Realizando o Upgrade de informação");
+  printf("--Realizando o Upgrade de informação\n");
   png_read_update_info(png, info);
 
   *row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * * height);
@@ -206,7 +209,7 @@ png_byte * color_type, png_byte * bit_depth, png_bytep **row_pointers)
   }
 
   png_read_image(png, *row_pointers);
-  printf("\n--Dados lidos com sucesso.");
+  printf("--Dados lidos com sucesso.\n");
 
   fclose(fp);
 }
@@ -216,7 +219,7 @@ png_byte color_type, png_byte bit_depth, png_bytep *row_pointers)
 {
   int y;
 
-  FILE *fp = fopen(filename, "wb");
+  FILE *fp = fopen(filename, "wb\n");
   if(!fp) abort();
 
   png_structp png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
@@ -257,35 +260,33 @@ png_byte color_type, png_byte bit_depth, png_bytep *row_pointers)
   fclose(fp);
 }*/
 
-void process_file(int height, int width, png_bytep *row_pointers)
+void copy_png_to_float(int width, int height, png_bytep *row_pointers,
+  float *** data)
 {
-  png_byte* row; int x = 0, y = 0;
-
-  for (y=0; y < height; y++) {
-    row = row_pointers[y];
-
-    for (x=0; x < width; x++) {
-      png_byte* ptr = &(row[x]);
-      printf("\nPixel at position [ %d - %d ] has RGBA values: %d - %d - %d - %d\n",
-             x, y, ptr[0], 0, 0, 0); //ptr[1], ptr[2], ptr[3]);
-    }
-  }
-}
-
-void copy_png_to_float(int height, int width, png_bytep *row_pointers, float *** data)
-{
+  printf("Copiando os dados para float\n");
   png_byte* row; int col_pos = 0, row_pos = 0;
 
-  for (row_pos=0; row_pos < 1; row_pos++) {
-    row = row_pointers[row_pos];
+  for (row_pos = 1; row_pos <= height; row_pos++) {
+    row = row_pointers[row_pos-1];
 
-    for (col_pos=0; col_pos < width; col_pos++) {
+    for (col_pos = 1; col_pos <= width; col_pos++) {
 
-      //printf("%d:%d!%d\n", row_pos, col_pos, row[col_pos]);
-      data[row_pos][col_pos][0] = (float) row[col_pos];
+      data[row_pos][col_pos][1] = (float) row[col_pos-1];
     }
   }
 }
+
+
+/*void print_float(int width, int height, float *** data)
+{
+  int col_pos = 0, row_pos = 0;
+
+  for (row_pos=0; row_pos < height; row_pos++) {
+    for (col_pos=0; col_pos < width; col_pos++) {
+      printf("%f\n", data[row_pos][col_pos][0]);
+    }
+  }
+}*/
 
 
 ////////////////////////////////////////////////////////////////
@@ -304,27 +305,30 @@ int main(void)
 
   read_png_file(& img_width, & img_height, & color_type, & bit_depth, & row_pointers);
 
-  printf("\nExecutando f3tensor");
-  data = f3tensor(1, img_width, 1, img_height, 1, 2);
+  printf("Executando f3tensor\n");
+  data = f3tensor(1, img_width, 1, img_height, 1, 1);
+  //data = f3tensor(0, img_width, 0, img_height, 0, 1);
 
-  printf("\nExecutando matrix");
+  printf("Executando matrix\n");
   speq = matrix(1, img_width, 1, 2 * img_height);
+  //speq = matrix(0, img_width, 0, 2 * img_height);
 
-  copy_png_to_float(img_height, img_width, row_pointers, data);
+  copy_png_to_float(img_width, img_height, row_pointers, data);
 
-  //process_file(img_height, img_width, row_pointers);
- /*
-  // LOAD DATA
+  printf("rlft3-1\n");
+  rlft3(data, speq, img_width, img_height, 1,  1);
 
-  rlft3(data, speq, N1, N2, N3,  1);
-
-  rlft3(data, speq, N1, N2, N3, -1);
+  printf("rlft3-1\n");
+  //rlft3(data, speq, img_width, img_height, 1, -1);
 
   // UNLOAD DATA AND SPEQ
 
-  free_matrix(speq, 1, N1, 1, 2 * N2);
-  free_f3tensor(data, 1, N1, 1, N2, 1, N3);
-  */
+  printf("rlft3-1\n");
+  /*free_matrix(speq, 1, img_width, 1, 2 * img_height);
+  free_f3tensor(data, 1, img_width, 1, img_height, 1, 1);*/
+  //free_matrix(speq, 0, img_width, 0, 2 * img_height);
+  //free_f3tensor(data, 0, img_width, 0, img_height, 0, 1);
+
   printf("\n\n");
   return 0;
 }
