@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "nrutil.h"
-#include "png_files.h"
+//#include "png_files.h"
 
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
 
