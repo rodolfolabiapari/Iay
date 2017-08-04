@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//#include "nrutil.c"
+#include "nrutil.c"
 //#include "png_files.h"
 
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
@@ -82,7 +82,7 @@ void fourn(float data[], unsigned long nn[], int ndim, int isign)
 #undef SWAP
 
 
-void rlft3(float data[4][512][512], float speq[1][2 * 512], unsigned long heigth, unsigned long width,
+void rlft3(float  *** data, float  ** speq, unsigned long heigth, unsigned long width,
   unsigned long dim,  int isign)
 {
   unsigned long i1, i2, i3, j1, j2, j3, nn[4], ii3;
@@ -150,7 +150,7 @@ void rlft3(float data[4][512][512], float speq[1][2 * 512], unsigned long heigth
 
 
 
-void random_to_float(int height, int width,  float data[4][512][512])
+void random_to_float(int height, int width,  float *** data)
 {
   printf("Copiando os dados para float\n");
   int col_pos = 0, row_pos = 0;
