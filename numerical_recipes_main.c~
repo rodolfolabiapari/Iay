@@ -1,15 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "nrutil.c"
+//#include "nrutil.c"
 //#include "png_files.h"
+
+float data[4][512][512], speq[2][2 * 512];
 
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
 
 ////////////////////////////////////////////////////////////////
 // Fourier Functions
 ////////////////////////////////////////////////////////////////
-void fourn(float data[], unsigned long nn[], int ndim, int isign)
+//void fourn(float data[], unsigned long nn[], int ndim, int isign)
+void fourn(unsigned long nn[], int ndim, int isign)
 {
   int idim;
   unsigned long i1, i2, i3, i2rev, i3rev, ip1, ip2, ip3, ifp1, ifp2;
@@ -30,7 +33,7 @@ void fourn(float data[], unsigned long nn[], int ndim, int isign)
     ip2 = ip1 * n;
     ip3 = ip2 * nrem;
     i2rev = 1;
-    for (i2 = 1; i2 <= ip2; i2 += ip1) {
+    /*for (i2 = 1; i2 <= ip2; i2 += ip1) {
       // this is the bit-reversal section of routine
       if (i2 < i2rev) {
         for (i1 = i2; i1 <= i2+ip1-2; i1 += 2) {
@@ -75,14 +78,14 @@ void fourn(float data[], unsigned long nn[], int ndim, int isign)
         wi = wi * wpr + wtemp * wpi + wi;
       }
       ifp1 = ifp2;
-    }
+    }*/
     nprev *= n;
   }
 }
 #undef SWAP
 
 
-void rlft3(float  *** data, float  ** speq, unsigned long heigth, unsigned long width,
+void rlft3(unsigned long heigth, unsigned long width,
   unsigned long dim,  int isign)
 {
   unsigned long i1, i2, i3, j1, j2, j3, nn[4], ii3;
@@ -104,7 +107,7 @@ void rlft3(float  *** data, float  ** speq, unsigned long heigth, unsigned long 
   nn[2] = width;
   nn[3] = dim >> 1;
   if (isign == 1) {
-    fourn(&data[1][1][1] - 1, nn, 3, isign);
+    fourn(nn, 3, isign);
     for (i1 = 1; i1 <= heigth; i1++)
       for (i2 = 1, j2 = 0; i2 <= width; i2++) {
         speq[i1][++j2] = data[i1][i2][1];
@@ -145,12 +148,12 @@ void rlft3(float  *** data, float  ** speq, unsigned long heigth, unsigned long 
     }
   }
   if (isign  ==  -1)
-    fourn(&data[1][1][1]-1, nn, 3, isign);
+    fourn(nn, 3, isign);
 }
 
 
 
-void random_to_float(int height, int width,  float *** data)
+void random_to_float(int height, int width)
 {
   printf("Copiando os dados para float\n");
   int col_pos = 0, row_pos = 0;
@@ -176,12 +179,14 @@ void random_to_float(int height, int width,  float *** data)
 }*/
 
 
+
+
+
 ////////////////////////////////////////////////////////////////
 // Main Procedure
 ////////////////////////////////////////////////////////////////
 int main(void)
 {
-  float data[4][512][512], speq[2][2 * 512];
 
   // PNG
   int img_width = 256, img_height = 256, img_depth = 4;
@@ -198,10 +203,10 @@ int main(void)
   //speq = matrix(1, 1, 1, 2 * img_height);
 
   //copy_png_to_float(img_height, img_width, row_pointers, data);
-  random_to_float(img_height, img_width, data);
+  random_to_float(img_height, img_width);
 
   printf("rlft3-1\n");
-  rlft3(data, speq, 1, img_height, img_width, 1);
+  rlft3(1, img_height, img_width, 1);
 
   printf("rlft3-1\n");
   //rlft3(data, speq, img_width, img_height, img_depth, -1);
