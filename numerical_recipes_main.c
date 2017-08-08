@@ -1,6 +1,6 @@
 #include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 //#include "nrutil.c"
 //#include "png_files.h"
 
@@ -18,12 +18,16 @@ float data[  1][512][512], speq[  1][2 * 512];
 void fourn(int ndim, int isign)
 {
 	int idim;
-	unsigned long i1,i2,i3,i2rev,i3rev,ip1,ip2,ip3,ifp1,ifp2;
-	unsigned long ibit,k1,k2,n,nprev,nrem,ntot;
-	float tempi,tempr;
-	float theta,wi,wpr,wr,wtemp,wpi;
+	unsigned long i1=0,i2=0,i3=0,i2rev=0,i3rev=0,ip1=0,ip2=0,ip3=0,ifp1=0,ifp2=0;
+	unsigned long ibit=0,k1=0,k2=0,n=0,nprev=0,nrem=0,ntot=0;
+	float tempi=0,tempr=0;
+	double theta=0,wi=0,wpr=0,wr=0,wtemp=0,wpi=0;
 	float data [134];
 	int nn[4];
+	nn[0] = 3;
+	nn[1] = 3;
+	nn[2] = 3;
+	nn[3] = 3;
 	ntot=1;
 	printf("fourn\n");
 	for (idim=1;idim<=ndim;idim++)
@@ -56,11 +60,15 @@ void fourn(int ndim, int isign)
 		ifp1=ip1;
 		while (ifp1 < ip2) {
 			ifp2=ifp1 << 1;
-			theta=isign*6.28318530717959/(ifp2/ip1);
-			wtemp=sinf(0.5*theta);
-			wpr = -2.0*wtemp*wtemp;
+			theta= ((float) isign*6.28318530717959) /((signed float) ifp2);//(ifp2/ip1);
+			//printf("%f\n", sinf( 0.5 * wi));			
+			//wtemp=sinf(theta);
+			//sinf((float) 0.5*theta);
+			//wtemp=sinf(0.5*theta);
+			//wtemp=sinf(0.5*theta);
+			//wpr = -2.0*wtemp*wtemp;
 			wpi=sinf(theta);
-			wr=1.0;
+			/*wr=1.0;
 			wi=0.0;
 			for (i3=1;i3<=ifp1;i3+=ip1) {
 				for (i1=i3;i1<=i3+ip1-2;i1+=2) {
@@ -77,7 +85,7 @@ void fourn(int ndim, int isign)
 				}
 				wr=(wtemp=wr)*wpr-wi*wpi+wr;
 				wi=wi*wpr+wtemp*wpi+wi;
-			}
+			}*/
 			ifp1=ifp2;
 		}
 		nprev *= n;
