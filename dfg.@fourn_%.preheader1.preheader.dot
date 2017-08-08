@@ -1,0 +1,11 @@
+digraph {
+Node0x2ee7b80[label="  %77 = add i32 %ifp1.021, 2"];
+Node0x2ee7b80 -> Node0x2ee7b80[label="D:2.50ns L:0",color=blue];
+Node0x2ee7c60[label="  %78 = or i32 %ifp1.021, 1"];
+Node0x2ee7c60 -> Node0x2ee7c60[label="D:0.00ns L:0",color=blue];
+Node0x2ee7d40[label="  %79 = shl i32 %ifp1.021, 1"];
+Node0x2ee7d40 -> Node0x2ee7d40[label="D:0.00ns L:0",color=blue];
+Node0x2ee7d40 -> Node0x2ee7d40[label="D:0.00ns L:0",color=blue];
+Node0x2ee7e20[label="  %80 = or i32 %79, 1"];
+Node0x2ee7e20 -> Node0x2ee7e20[label="D:0.00ns L:0",color=blue];
+}

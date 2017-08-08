@@ -1,0 +1,8 @@
+digraph {
+Node0x2cc2960[label="  %18 = load float* %2, align 4"];
+Node0x2cc2960 -> Node0x2cc2960[label="D:0.00ns L:2",color=blue];
+Node0x2cc2a40[label="  %19 = fadd float %18, 0x46293E59400000..."];
+Node0x2cc2a40 -> Node0x2cc2a40[label="D:3.24ns L:14",color=blue];
+Node0x2cc2b20[label="  %20 = fcmp ogt float %19, 0.000000e+00"];
+Node0x2cc2b20 -> Node0x2cc2b20[label="D:3.53ns L:1",color=blue];
+}

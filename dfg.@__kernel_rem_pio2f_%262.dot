@@ -1,0 +1,15 @@
+digraph {
+Node0x2d18b00[label="  %storemerge14.in = phi i32 [ %261, %26..."];
+Node0x2d18b00 -> Node0x2d18b00[label="D:0.00ns L:0",color=blue];
+Node0x2d18b00 -> Node0x2d18b00[label="D:0.00ns L:0",color=blue];
+Node0x2d18be0[label="  %storemerge14 = add nsw i32 %storemerg..."];
+Node0x2d18be0 -> Node0x2d18be0[label="D:2.50ns L:0",color=blue];
+Node0x2d18da0[label="  %263 = load i32* %jz, align 4"];
+Node0x2d18da0 -> Node0x2d18da0[label="D:0.00ns L:2",color=blue];
+Node0x2d18e80[label="  %264 = load i32* %k, align 4"];
+Node0x2d18e80 -> Node0x2d18e80[label="D:0.00ns L:2",color=blue];
+Node0x2d18f60[label="  %265 = add nsw i32 %263, %264"];
+Node0x2d18f60 -> Node0x2d18f60[label="D:2.50ns L:0",color=blue];
+Node0x2d19040[label="  %266 = icmp slt i32 %storemerge14.in, ..."];
+Node0x2d19040 -> Node0x2d19040[label="D:3.36ns L:0",color=blue];
+}

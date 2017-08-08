@@ -1,0 +1,31 @@
+digraph {
+Node0x2d3b740[label="  %565 = getelementptr inbounds [20 x fl..."];
+Node0x2d3b740 -> Node0x2d3b740[label="D:0.00ns L:0",color=blue];
+Node0x2d3b820[label="  %566 = load float* %565, align 4"];
+Node0x2d3b820 -> Node0x2d3b820[label="D:0.00ns L:2",color=blue];
+Node0x2d3b900[label="  %567 = load float** %2, align 4"];
+Node0x2d3b900 -> Node0x2d3b900[label="D:0.00ns L:2",color=blue];
+Node0x2d3be40[label="  store float %569, float* %571, align 4"];
+Node0x2d3b9e0[label="  store float %566, float* %567, align 4"];
+Node0x2d3b9e0 -> Node0x2d3be40[label="D:20.00ns L:1",color=red];
+Node0x2d3bf20[label="  %572 = load float* %fw, align 4"];
+Node0x2d3b9e0 -> Node0x2d3bf20[label="D:20.00ns L:1",color=red];
+Node0x2d3c1c0[label="  store float %572, float* %574, align 4"];
+Node0x2d3b9e0 -> Node0x2d3c1c0[label="D:20.00ns L:1",color=red];
+Node0x2d3bac0[label="  %568 = getelementptr inbounds [20 x fl..."];
+Node0x2d3bac0 -> Node0x2d3bac0[label="D:0.00ns L:0",color=blue];
+Node0x2d3bba0[label="  %569 = load float* %568, align 4"];
+Node0x2d3bba0 -> Node0x2d3bba0[label="D:0.00ns L:2",color=blue];
+Node0x2d3bc80[label="  %570 = load float** %2, align 4"];
+Node0x2d3bc80 -> Node0x2d3bc80[label="D:0.00ns L:2",color=blue];
+Node0x2d3bd60[label="  %571 = getelementptr inbounds float* %..."];
+Node0x2d3bd60 -> Node0x2d3bd60[label="D:0.00ns L:0",color=blue];
+Node0x2d3be40 -> Node0x2d3bf20[label="D:20.00ns L:1",color=red];
+Node0x2d3be40 -> Node0x2d3c1c0[label="D:20.00ns L:1",color=red];
+Node0x2d3bf20 -> Node0x2d3bf20[label="D:0.00ns L:2",color=blue];
+Node0x2d3bf20 -> Node0x2d3c1c0[label="D:0.00ns L:2",color=red];
+Node0x2d3c000[label="  %573 = load float** %2, align 4"];
+Node0x2d3c000 -> Node0x2d3c000[label="D:0.00ns L:2",color=blue];
+Node0x2d3c0e0[label="  %574 = getelementptr inbounds float* %..."];
+Node0x2d3c0e0 -> Node0x2d3c0e0[label="D:0.00ns L:0",color=blue];
+}

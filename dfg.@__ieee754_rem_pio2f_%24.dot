@@ -1,0 +1,12 @@
+digraph {
+Node0x2d6d3a0[label="  %25 = load float* %2, align 4"];
+Node0x2d6d3a0 -> Node0x2d6d3a0[label="D:0.00ns L:2",color=blue];
+Node0x2d6d480[label="  %26 = fadd float %25, 0xBFF921F0000000..."];
+Node0x2d6d480 -> Node0x2d6d480[label="D:3.24ns L:14",color=blue];
+Node0x2e0ccc0[label="  %27 = load i32* %ix, align 4"];
+Node0x2e0ccc0 -> Node0x2e0ccc0[label="D:0.00ns L:2",color=blue];
+Node0x2e0cda0[label="  %28 = and i32 %27, -16"];
+Node0x2e0cda0 -> Node0x2e0cda0[label="D:0.00ns L:0",color=blue];
+Node0x2e0ce80[label="  %29 = icmp eq i32 %28, 1070141392"];
+Node0x2e0ce80 -> Node0x2e0ce80[label="D:2.49ns L:0",color=blue];
+}

@@ -1,0 +1,22 @@
+digraph {
+Node0x2e25410[label="  %244 = getelementptr inbounds [3 x flo..."];
+Node0x2e25410 -> Node0x2e25410[label="D:0.00ns L:0",color=blue];
+Node0x2e254f0[label="  %245 = load float** %3, align 4"];
+Node0x2e254f0 -> Node0x2e254f0[label="D:0.00ns L:2",color=blue];
+Node0x2e25790[label="  %248 = call i32 @__kernel_rem_pio2f(fl..."];
+Node0x2e254f0 -> Node0x2e25790[label="D:0.00ns L:2",color=red];
+Node0x2e255d0[label="  %246 = load i32* %e0, align 4"];
+Node0x2e255d0 -> Node0x2e255d0[label="D:0.00ns L:2",color=blue];
+Node0x2e255d0 -> Node0x2e25790[label="D:0.00ns L:2",color=red];
+Node0x2e256b0[label="  %247 = load i32* %nx, align 4"];
+Node0x2e256b0 -> Node0x2e256b0[label="D:0.00ns L:2",color=blue];
+Node0x2e256b0 -> Node0x2e25790[label="D:0.00ns L:2",color=red];
+Node0x2e25790 -> Node0x2e25790[label="D:0.00ns L:1",color=blue];
+Node0x2e25870[label="  store i32 %248, i32* %n, align 4"];
+Node0x2e25790 -> Node0x2e25870[label="D:0.00ns L:1",color=red];
+Node0x2e25950[label="  %249 = load i32* %hx, align 4"];
+Node0x2e25790 -> Node0x2e25950[label="D:0.00ns L:1",color=red];
+Node0x2e25950 -> Node0x2e25950[label="D:0.00ns L:2",color=blue];
+Node0x2e25a30[label="  %250 = icmp slt i32 %249, 0"];
+Node0x2e25a30 -> Node0x2e25a30[label="D:3.36ns L:0",color=blue];
+}

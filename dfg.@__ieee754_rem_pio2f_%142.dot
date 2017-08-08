@@ -1,0 +1,14 @@
+digraph {
+Node0x2e17870[label="  %143 = load float** %3, align 4"];
+Node0x2e17870 -> Node0x2e17870[label="D:0.00ns L:2",color=blue];
+Node0x2e17950[label="  %144 = load float* %143, align 4"];
+Node0x2e17950 -> Node0x2e17950[label="D:0.00ns L:2",color=blue];
+Node0x2e17a30[label="  %145 = getelementptr inbounds %union.i..."];
+Node0x2e17a30 -> Node0x2e17a30[label="D:0.00ns L:0",color=blue];
+Node0x2e17cd0[label="  %147 = load i32* %146, align 4"];
+Node0x2e17b10[label="  store float %144, float* %145, align 4"];
+Node0x2e17b10 -> Node0x2e17cd0[label="D:20.00ns L:1",color=red];
+Node0x2e17bf0[label="  %146 = bitcast %union.ieee_float_shape..."];
+Node0x2e17bf0 -> Node0x2e17bf0[label="D:0.00ns L:0",color=blue];
+Node0x2e17cd0 -> Node0x2e17cd0[label="D:0.00ns L:2",color=blue];
+}

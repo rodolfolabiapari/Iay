@@ -1,0 +1,23 @@
+digraph {
+Node0x2e20470[label="  %171 = load float* %r, align 4"];
+Node0x2e20470 -> Node0x2e20470[label="D:0.00ns L:2",color=blue];
+Node0x2e20550[label="  %172 = load float** %3, align 4"];
+Node0x2e20550 -> Node0x2e20550[label="D:0.00ns L:2",color=blue];
+Node0x2e20550 -> Node0x2e20550[label="D:0.00ns L:2",color=blue];
+Node0x2e20a90[label="  store float %176, float* %177, align 4"];
+Node0x2e20550 -> Node0x2e20a90[label="D:0.00ns L:2",color=red];
+Node0x2e20630[label="  %173 = load float* %172, align 4"];
+Node0x2e20630 -> Node0x2e20630[label="D:0.00ns L:2",color=blue];
+Node0x2e20710[label="  %174 = fsub float %171, %173"];
+Node0x2e20710 -> Node0x2e20710[label="D:3.20ns L:14",color=blue];
+Node0x2e207f0[label="  %175 = load float* %w, align 4"];
+Node0x2e207f0 -> Node0x2e207f0[label="D:0.00ns L:2",color=blue];
+Node0x2e208d0[label="  %176 = fsub float %174, %175"];
+Node0x2e208d0 -> Node0x2e208d0[label="D:3.20ns L:14",color=blue];
+Node0x2e209b0[label="  %177 = getelementptr inbounds float* %..."];
+Node0x2e209b0 -> Node0x2e209b0[label="D:0.00ns L:0",color=blue];
+Node0x2e20b70[label="  %178 = load i32* %hx, align 4"];
+Node0x2e20b70 -> Node0x2e20b70[label="D:0.00ns L:2",color=blue];
+Node0x2e20c50[label="  %179 = icmp slt i32 %178, 0"];
+Node0x2e20c50 -> Node0x2e20c50[label="D:3.36ns L:0",color=blue];
+}

@@ -1,0 +1,8 @@
+digraph {
+Node0x2d0fbd0[label="  %302 = load float* %fw, align 4"];
+Node0x2d0fbd0 -> Node0x2d0fbd0[label="D:0.00ns L:2",color=blue];
+Node0x2d0fcb0[label="  %303 = load i32* %i, align 4"];
+Node0x2d0fcb0 -> Node0x2d0fcb0[label="D:0.00ns L:2",color=blue];
+Node0x2d0fd90[label="  %304 = getelementptr inbounds [20 x fl..."];
+Node0x2d0fd90 -> Node0x2d0fd90[label="D:20.00ns L:0",color=blue];
+}
