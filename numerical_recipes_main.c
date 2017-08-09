@@ -7,7 +7,7 @@
 int nn1 = 1, nn2 = 512, nn3 = 512;
 
 //float data[nn1][nn2][nn3], speq[nn1][2 * nn2];
-float data[  1][512][512], speq[  1][2 * 512];
+float data[  2][512][512], speq[  1][2 * 512];
 
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
 
@@ -15,24 +15,20 @@ float data[  1][512][512], speq[  1][2 * 512];
 // Fourier Functions
 ////////////////////////////////////////////////////////////////
 //void fourn(float data[nn1 * nn2 * nn3], unsigned long nn[4], int ndim, int isign)
-void fourn(int ndim, int isign)
+void fourn(float data[], long nn[4], int ndim, int isign)
 {
 	int idim;
-	 long i1=1,i2=1,i3=1,i2rev=1,i3rev=1,ip1=1,ip2=1,ip3=1,ifp1=1,ifp2=1;
-	 long ibit=1,k1=1,k2=1,n=1,nprev=1,nrem=1,ntot=1;
-	float tempi=1,tempr=1;
-	double theta=1,wi=1,wpr=1,wr=1,wtemp=1,wpi=1;
-	float data [134];
-	int nn[4];
-	nn[0] = 3;
-	nn[1] = 3;
-	nn[2] = 3;
-	nn[3] = 3;
+	long i1=0,i2=0,i3=0,i2rev=0,i3rev=0,ip1=0,ip2=0,ip3=0,ifp1=0,ifp2=0;
+	long ibit=0,k1=0,k2=0,n=0,nprev=0,nrem=0,ntot=0;
+	float tempi=0,tempr=0;
+	double theta=0,wi=0,wpr=0,wr=0,wtemp=0,wpi=0;
 	ntot=1;
-	printf("fourn\n");
+	printf("fourn 1\n");
 	for (idim=1;idim<=ndim;idim++)
 		ntot *= nn[idim];
 	nprev=1;
+
+	printf("fourn 2\n");
 	for (idim=ndim;idim>=1;idim--) {
 		n=nn[idim];
 		nrem=ntot/(n*nprev);
@@ -40,6 +36,7 @@ void fourn(int ndim, int isign)
 		ip2=ip1*n;
 		ip3=ip2*nrem;
 		i2rev=1;
+		printf("fourn 3\n");
 		for (i2=1;i2<=ip2;i2+=ip1) {
 			if (i2 < i2rev) {
 				for (i1=i2;i1<=i2+ip1-2;i1+=2) {
@@ -57,21 +54,18 @@ void fourn(int ndim, int isign)
 			}
 			i2rev += ibit;
 		}
+
+	printf("fourn 4\n");
 		ifp1=ip1;
 		while (ifp1 < ip2) {
 			ifp2= ifp1 << 1;
-			theta = isign * 6.28318530717959;
-			theta = theta / (float) ifp2;
-			//theta= ((double) isign * 6.28318530717959) /((double) ifp2);//(ifp2/ip1);
-			//printf("%f\n", sinf( 0.5 * wi));			
-			//wtemp=sinf(theta);
-			//sinf((float) 0.5*theta);
-			//wtemp=sinf(0.5*theta);
-			//wtemp=sinf(0.5*theta);
-			//wpr = -2.0*wtemp*wtemp;
+			theta= (isign * 6.28318530717959) /(ifp2/ip1);
+			wtemp=sinf(0.5*theta);
+			wpr = -2.0*wtemp*wtemp;
 			wpi=sinf(theta);
-			/*wr=1.0;
+			wr=1.0;
 			wi=0.0;
+	printf("fourn 5\n");
 			for (i3=1;i3<=ifp1;i3+=ip1) {
 				for (i1=i3;i1<=i3+ip1-2;i1+=2) {
 					for (i2=i1;i2<=ip3;i2+=ifp2) {
@@ -87,7 +81,7 @@ void fourn(int ndim, int isign)
 				}
 				wr=(wtemp=wr)*wpr-wi*wpi+wr;
 				wi=wi*wpr+wtemp*wpi+wi;
-			}*/
+			}
 			ifp1=ifp2;
 		}
 		nprev *= n;
@@ -95,29 +89,28 @@ void fourn(int ndim, int isign)
 }
 #undef SWAP
 
-/*
-void rlft3(unsigned long nn1, unsigned long nn2,
-	unsigned long nn3, int isign)
+
+void rlft3(int nn1, int nn2, int nn3, int isign)
 {
-	unsigned long i1,i2,i3,j1,j2,j3,nn[4],ii3;
+	long i1,i2,i3,j1,j2,j3,nn[4],ii3;
 	float theta,wi,wpr,wr,wtemp,wpi;
 	float c1,c2,h1r,h1i,h2r,h2i;
 
 	if (1+&data[nn1][nn2][nn3]-&data[1][1][1] != nn1*nn2*nn3) {
 		printf("rlft3: problem with dimensions or contiguity of data array\n");
-		exit(-1);
+		while(1) ;
 	}
 	c1=0.5;
 	c2 = -0.5*isign;
 	theta=isign*(6.28318530717959/nn3);
 	wtemp=sinf(0.5*theta);
 	wpr = -2.0*wtemp*wtemp;
-	wpi=sin(theta);
+	wpi=sinf(theta);
 	nn[1]=nn1;
 	nn[2]=nn2;
 	nn[3]=nn3 >> 1;
 	if (isign == 1) {
-		//fourn(&data[1][1][1]-1,nn,3,isign);
+		fourn(&data[1][1][1]-1,nn,3,isign);
 		for (i1=1;i1<=nn1;i1++)
 			for (i2=1,j2=0;i2<=nn2;i2++) {
 				speq[i1][++j2]=data[i1][i2][1];
@@ -157,21 +150,21 @@ void rlft3(unsigned long nn1, unsigned long nn2,
 			wi=wi*wpr+wtemp*wpi+wi;
 		}
 	}
-	//if (isign == -1)
-		//fourn(&data[1][1][1]-1,nn,3,isign);
+	if (isign == -1)
+		fourn(&data[1][1][1]-1,nn,3,isign);
 }
-*/
+
 
 
 void random_to_float(int height, int width)
 {
-  printf("Copiando os dados para float\n");
-  int col_pos = 0, row_pos = 0;
-  for (row_pos = 1; row_pos <= height; row_pos++) {
-    for (col_pos = 1; col_pos <= width; col_pos++) {
-      data[1][row_pos][col_pos] = (float) row_pos * col_pos;
-    }
-  }
+	printf("Copiando os dados para float\n");
+	int col_pos = 0, row_pos = 0;
+	for (row_pos = 1; row_pos <= height; row_pos++) {
+		for (col_pos = 1; col_pos <= width; col_pos++) {
+			data[1][row_pos][col_pos] = row_pos * col_pos;
+		}
+	}
 }
 
 /*void print_float(int width, int height, float *** data)
@@ -208,14 +201,14 @@ int main(void)
   //speq = matrix(1, 1, 1, 2 * img_height);
 
   //copy_png_to_float(img_height, img_width, row_pointers, data);
-  random_to_float(img_height, img_width);
+  random_to_float(img_height / 2, img_width / 2);
 
-  int n [4] = {1, 512, 256};
+  unsigned long n [4] = {1, 512, 256};
   //fourn(&data[1][1][1], n, 3, 1);
-  fourn(3, 1);
+  //fourn(n, 3, 1);
 
   printf("rlft3-1\n");
-  //rlft3(nn1, nn2, nn3, 1);
+  rlft3(nn1, nn2, nn3, 1);
 
   printf("rlft3-1\n");
   //rlft3(data, speq, img_width, img_height, img_depth, -1);
