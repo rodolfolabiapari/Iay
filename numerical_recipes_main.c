@@ -18,10 +18,10 @@ float data[  1][512][512], speq[  1][2 * 512];
 void fourn(int ndim, int isign)
 {
 	int idim;
-	unsigned long i1=0,i2=0,i3=0,i2rev=0,i3rev=0,ip1=0,ip2=0,ip3=0,ifp1=0,ifp2=0;
-	unsigned long ibit=0,k1=0,k2=0,n=0,nprev=0,nrem=0,ntot=0;
-	float tempi=0,tempr=0;
-	double theta=0,wi=0,wpr=0,wr=0,wtemp=0,wpi=0;
+	 long i1=1,i2=1,i3=1,i2rev=1,i3rev=1,ip1=1,ip2=1,ip3=1,ifp1=1,ifp2=1;
+	 long ibit=1,k1=1,k2=1,n=1,nprev=1,nrem=1,ntot=1;
+	float tempi=1,tempr=1;
+	double theta=1,wi=1,wpr=1,wr=1,wtemp=1,wpi=1;
 	float data [134];
 	int nn[4];
 	nn[0] = 3;
@@ -59,8 +59,10 @@ void fourn(int ndim, int isign)
 		}
 		ifp1=ip1;
 		while (ifp1 < ip2) {
-			ifp2=ifp1 << 1;
-			theta= ((float) isign*6.28318530717959) /((signed float) ifp2);//(ifp2/ip1);
+			ifp2= ifp1 << 1;
+			theta = isign * 6.28318530717959;
+			theta = theta / (float) ifp2;
+			//theta= ((double) isign * 6.28318530717959) /((double) ifp2);//(ifp2/ip1);
 			//printf("%f\n", sinf( 0.5 * wi));			
 			//wtemp=sinf(theta);
 			//sinf((float) 0.5*theta);
