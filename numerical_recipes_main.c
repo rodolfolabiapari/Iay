@@ -1,13 +1,13 @@
 #include <math.h>
 #include <stdio.h>
-//#include <stdlib.h>
+#include <stdlib.h>
 //#include "nrutil.c"
 //#include "png_files.h"
 
 int nn1 = 1, nn2 = 512, nn3 = 512;
 
 //float data[nn1][nn2][nn3], speq[nn1][2 * nn2];
-float data[  2][512][512], speq[  1][2 * 512];
+float data[  2][512][512], speq[  2][2 * 512];
 
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
 
@@ -112,11 +112,17 @@ void rlft3(int nn1, int nn2, int nn3, int isign)
 	if (isign == 1) {
 		fourn(&data[1][1][1]-1,nn,3,isign);
 		for (i1=1;i1<=nn1;i1++)
+			printf("i1=%ld <= nn1=%d\n", i1, nn1);
 			for (i2=1,j2=0;i2<=nn2;i2++) {
+				printf("--- j2=%ld i2=%ld <= nn2=%d ", j2, i2, nn2);
+				fflush(stdout);
 				speq[i1][++j2]=data[i1][i2][1];
+				printf(".\n");
 				speq[i1][++j2]=data[i1][i2][2];
 			}
 	}
+	printf("Parou aqui\n");
+	exit(-1);
 	for (i1=1;i1<=nn1;i1++) {
 		j1=(i1 != 1 ? nn1-i1+2 : 1);
 		wr=1.0;
