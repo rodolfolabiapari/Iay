@@ -7,7 +7,7 @@
 int nn1 = 1, nn2 = 512, nn3 = 512;
 
 //float data[nn1][nn2][nn3], speq[nn1][2 * nn2];
-float data[  2][512][512], speq[  2][2 * 512];
+float data[  3][512][512], speq[  3][2 * 512];
 
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
 
@@ -23,12 +23,10 @@ void fourn(float data[], long nn[4], int ndim, int isign)
 	float tempi=0,tempr=0;
 	double theta=0,wi=0,wpr=0,wr=0,wtemp=0,wpi=0;
 	ntot=1;
-	printf("fourn 1\n");
 	for (idim=1;idim<=ndim;idim++)
 		ntot *= nn[idim];
 	nprev=1;
 
-	printf("fourn 2\n");
 	for (idim=ndim;idim>=1;idim--) {
 		n=nn[idim];
 		nrem=ntot/(n*nprev);
@@ -36,7 +34,6 @@ void fourn(float data[], long nn[4], int ndim, int isign)
 		ip2=ip1*n;
 		ip3=ip2*nrem;
 		i2rev=1;
-		printf("fourn 3\n");
 		for (i2=1;i2<=ip2;i2+=ip1) {
 			if (i2 < i2rev) {
 				for (i1=i2;i1<=i2+ip1-2;i1+=2) {
@@ -54,8 +51,6 @@ void fourn(float data[], long nn[4], int ndim, int isign)
 			}
 			i2rev += ibit;
 		}
-
-	printf("fourn 4\n");
 		ifp1=ip1;
 		while (ifp1 < ip2) {
 			ifp2= ifp1 << 1;
@@ -65,7 +60,6 @@ void fourn(float data[], long nn[4], int ndim, int isign)
 			wpi=sinf(theta);
 			wr=1.0;
 			wi=0.0;
-	printf("fourn 5\n");
 			for (i3=1;i3<=ifp1;i3+=ip1) {
 				for (i1=i3;i1<=i3+ip1-2;i1+=2) {
 					for (i2=i1;i2<=ip3;i2+=ifp2) {
@@ -95,6 +89,7 @@ void rlft3(int nn1, int nn2, int nn3, int isign)
 	long i1,i2,i3,j1,j2,j3,nn[4],ii3;
 	float theta,wi,wpr,wr,wtemp,wpi;
 	float c1,c2,h1r,h1i,h2r,h2i;
+	float buffer;
 
 	if (1+&data[nn1][nn2][nn3]-&data[1][1][1] != nn1*nn2*nn3) {
 		printf("rlft3: problem with dimensions or contiguity of data array\n");
@@ -110,15 +105,13 @@ void rlft3(int nn1, int nn2, int nn3, int isign)
 	nn[2]=nn2;
 	nn[3]=nn3 >> 1;
 	if (isign == 1) {
-		fourn(&data[1][1][1]-1,nn,3,isign);
+		//fourn(&data[1][1][1]-1,nn,3,isign);
+
 		for (i1=1;i1<=nn1;i1++)
-			printf("i1=%ld <= nn1=%d\n", i1, nn1);
-			for (i2=1,j2=0;i2<=nn2;i2++) {
-				printf("--- j2=%ld i2=%ld <= nn2=%d ", j2, i2, nn2);
-				fflush(stdout);
-				speq[i1][++j2]=data[i1][i2][1];
-				printf(".\n");
-				speq[i1][++j2]=data[i1][i2][2];
+			j2=1;
+			for (i2=1;i2<=nn2;i2++) {
+				speq[i1][j2++] = data[i1][i2][1];
+				speq[i1][j2++]=data[i1][i2][2];
 			}
 	}
 	printf("Parou aqui\n");
