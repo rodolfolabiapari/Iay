@@ -9,6 +9,23 @@ int nn1 = 1, nn2 = 512, nn3 = 512;
 //float data[nn1][nn2][nn3], speq[nn1][2 * nn2];
 float data[  3][512][512], speq[  3][2 * 512];
 
+
+//https://stackoverflow.com/questions/19909501/calculate-the-function-sin
+double sinX(double x) {
+  double term, total_so_far;
+  int i;
+
+  term = x;  /* First term in the expansion. */
+  total_so_far = 0.0;
+  for (i = 1; i <= 30; i++) {
+    /* Add current term to sum. */
+    total_so_far += term;
+    /* Compute next term from the current one. */
+    term *= -(x * x) / (2*i) / (2*i + 1);
+  }
+  return total_so_far;
+}
+
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
 
 ////////////////////////////////////////////////////////////////
@@ -56,11 +73,11 @@ void fourn(float data[], long nn[4], int ndim, int isign)
 			ifp2= ifp1 << 1;
 			theta= (isign * 6.28318530717959) /(ifp2/ip1);
 			wtemp=sinf(0.5*theta);
-			wpr = -2.0*wtemp*wtemp;
+			/*wpr = -2.0*wtemp*wtemp;
 			wpi=sinf(theta);
 			wr=1.0;
 			wi=0.0;
-			for (i3=1;i3<=ifp1;i3+=ip1) {
+			/*for (i3=1;i3<=ifp1;i3+=ip1) {
 				for (i1=i3;i1<=i3+ip1-2;i1+=2) {
 					for (i2=i1;i2<=ip3;i2+=ifp2) {
 						k1=i2;
@@ -75,7 +92,7 @@ void fourn(float data[], long nn[4], int ndim, int isign)
 				}
 				wr=(wtemp=wr)*wpr-wi*wpi+wr;
 				wi=wi*wpr+wtemp*wpi+wi;
-			}
+			}*/
 			ifp1=ifp2;
 		}
 		nprev *= n;
@@ -114,8 +131,6 @@ void rlft3(int nn1, int nn2, int nn3, int isign)
 				speq[i1][j2++]=data[i1][i2][2];
 			}
 	}
-	printf("Parou aqui\n");
-	exit(-1);
 	for (i1=1;i1<=nn1;i1++) {
 		j1=(i1 != 1 ? nn1-i1+2 : 1);
 		wr=1.0;

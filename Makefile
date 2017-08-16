@@ -1,5 +1,5 @@
 NAME=numerical_recipes_main
-#LOCAL_CONFIG = -legup-config=config.tcl
+LOCAL_CONFIG = -legup-config=config.tcl
 ifeq ($(NO_OPT),)
 	NO_OPT=1
 endif
@@ -24,6 +24,6 @@ include $(LEVEL)/Makefile.common
 
 #LDFLAG       += `pkg-config --libs --cflags opencv` # Não funciona pois esta opcao não é nesse local
 #CFLAG       += `pkg-config --libs --cflags opencv`
-#CFLAG       += -lm
+CFLAG       += -lm
 #CLANG_FLAGS += `pkg-config --libs --cflags opencv`
 #OPT_FLAGS   += `pkg-config --libs opencv`
