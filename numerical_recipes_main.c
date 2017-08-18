@@ -10,22 +10,6 @@ int nn1 = 1, nn2 = 512, nn3 = 512;
 float data[  3][512][512], speq[  3][2 * 512];
 
 
-//https://stackoverflow.com/questions/19909501/calculate-the-function-sin
-double sinX(double x) {
-  double term, total_so_far;
-  int i;
-
-  term = x;  /* First term in the expansion. */
-  total_so_far = 0.0;
-  for (i = 1; i <= 30; i++) {
-    /* Add current term to sum. */
-    total_so_far += term;
-    /* Compute next term from the current one. */
-    term *= -(x * x) / (2*i) / (2*i + 1);
-  }
-  return total_so_far;
-}
-
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
 
 ////////////////////////////////////////////////////////////////
