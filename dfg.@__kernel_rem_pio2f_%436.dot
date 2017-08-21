@@ -1,0 +1,6 @@
+digraph {
+Node0x2d33160[label="  %437 = load float* %fw, align 4"];
+Node0x2d33160 -> Node0x2d33160[label="D:0.00ns L:2",color=blue];
+Node0x2d33240[label="  %438 = fsub float -0.000000e+00, %437"];
+Node0x2d33240 -> Node0x2d33240[label="D:3.20ns L:14",color=blue];
+}

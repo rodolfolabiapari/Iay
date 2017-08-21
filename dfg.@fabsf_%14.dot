@@ -1,0 +1,4 @@
+digraph {
+Node0x2cc0380[label="  %15 = load float* %1, align 4"];
+Node0x2cc0380 -> Node0x2cc0380[label="D:0.00ns L:2",color=blue];
+}

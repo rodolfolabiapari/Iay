@@ -1,0 +1,29 @@
+digraph {
+Node0x2ee3530[label="  %indvar1 = phi i32 [ %indvar.next2, %...."];
+Node0x2ee3530 -> Node0x2ee3530[label="D:0.00ns L:0",color=blue];
+Node0x2ee3530 -> Node0x2ee3530[label="D:0.00ns L:0",color=blue];
+Node0x2ee3530 -> Node0x2ee3530[label="D:0.00ns L:0",color=blue];
+Node0x2ee3610[label="  %37 = shl i32 %indvar1, 1"];
+Node0x2ee3610 -> Node0x2ee3610[label="D:0.00ns L:0",color=blue];
+Node0x2ee3610 -> Node0x2ee3610[label="D:0.00ns L:0",color=blue];
+Node0x2ee3610 -> Node0x2ee3610[label="D:0.00ns L:0",color=blue];
+Node0x2ee3610 -> Node0x2ee3610[label="D:0.00ns L:0",color=blue];
+Node0x2ee36f0[label="  %38 = add i32 %31, %37"];
+Node0x2ee36f0 -> Node0x2ee36f0[label="D:2.50ns L:0",color=blue];
+Node0x2ee37d0[label="  %39 = add i32 %32, %37"];
+Node0x2ee37d0 -> Node0x2ee37d0[label="D:2.50ns L:0",color=blue];
+Node0x2ee38b0[label="  %40 = add i32 %33, %37"];
+Node0x2ee38b0 -> Node0x2ee38b0[label="D:2.50ns L:0",color=blue];
+Node0x2ee3990[label="  %i1.08 = add i32 %i2.0101, %37"];
+Node0x2ee3990 -> Node0x2ee3990[label="D:2.50ns L:0",color=blue];
+Node0x2ee3990 -> Node0x2ee3990[label="D:2.50ns L:0",color=blue];
+Node0x2ee3a70[label="  %41 = shl i32 %indvar1, 1"];
+Node0x2ee3a70 -> Node0x2ee3a70[label="D:0.00ns L:0",color=blue];
+Node0x2ee3a70 -> Node0x2ee3a70[label="D:0.00ns L:0",color=blue];
+Node0x2ee3b50[label="  %42 = add i32 %i2rev.09, %41"];
+Node0x2ee3b50 -> Node0x2ee3b50[label="D:2.50ns L:0",color=blue];
+Node0x2ee3c30[label="  %43 = add i32 %36, %41"];
+Node0x2ee3c30 -> Node0x2ee3c30[label="D:2.50ns L:0",color=blue];
+Node0x2ee3d10[label="  %44 = icmp ugt i32 %i1.08, %15"];
+Node0x2ee3d10 -> Node0x2ee3d10[label="D:3.12ns L:0",color=blue];
+}

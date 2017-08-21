@@ -1,0 +1,10 @@
+digraph {
+Node0x2d20cb0[label="  %353 = load float* %z, align 4"];
+Node0x2d20cb0 -> Node0x2d20cb0[label="D:0.00ns L:2",color=blue];
+Node0x2d20d90[label="  %354 = fptosi float %353 to i32"];
+Node0x2d20d90 -> Node0x2d20d90[label="D:3.12ns L:6",color=blue];
+Node0x2d20e70[label="  %355 = load i32* %jz, align 4"];
+Node0x2d20e70 -> Node0x2d20e70[label="D:0.00ns L:2",color=blue];
+Node0x2d20f50[label="  %356 = getelementptr inbounds [20 x i3..."];
+Node0x2d20f50 -> Node0x2d20f50[label="D:20.00ns L:0",color=blue];
+}

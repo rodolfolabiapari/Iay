@@ -1,0 +1,272 @@
+\documentclass[landscape]{article}
+\usepackage{gantt}
+\pagestyle{empty}
+\begin{document}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{13}{3}
+\begin{ganttitle}
+\numtitle{0}{1}{2}{1}
+\end{ganttitle}
+\ganttbar{  \%1 = alloca float, align 4}{1}{1}
+\ganttbar{  \%2 = alloca float, align 4}{1}{1}
+\ganttcon{2}{2}{1}{10}
+\ganttbar{  \%3 = alloca float, align 4}{1}{1}
+\ganttcon{2}{3}{1}{11}
+\ganttbar{  \%z = alloca float, align 4}{1}{1}
+\ganttbar{  \%r = alloca float, align 4}{1}{1}
+\ganttbar{  \%qx = alloca float, align 4}{1}{1}
+\ganttbar{  \%ix = alloca i32, align 4}{1}{1}
+\ganttbar{  \%gf\_u = alloca \%union.ieee\_float\_shape\_type, align 4}{1}{1}
+\ganttbar{  \%sf\_u = alloca \%union.ieee\_float\_shape\_type, align 4}{1}{1}
+\ganttbar{  store float \%x, float* \%2, align 4}{1}{1}
+\ganttbar{  store float \%y, float* \%3, align 4}{1}{1}
+\ganttbar{  br label \%4}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{8}{8}
+\begin{ganttitle}
+\numtitle{0}{1}{7}{1}
+\end{ganttitle}
+\ganttbar{  \%5 = load float* \%2, align 4}{1}{2}
+\ganttcon{3}{1}{3}{5}
+\ganttbar{  \%6 = getelementptr inbounds \%union.ieee\_float\_shape\_type* \%gf\_u, i32 0,...}{1}{1}
+\ganttcon{2}{2}{3}{5}
+\ganttbar{  \%7 = bitcast \%union.ieee\_float\_shape\_type* \%gf\_u to i32*}{1}{1}
+\ganttcon{2}{3}{4}{6}
+\ganttbar{  br label \%9}{1}{1}
+\ganttbar{  store float \%5, float* \%6, align 4}{3}{1}
+\ganttbar{  \%8 = load i32* \%7, align 4}{4}{2}
+\ganttcon{6}{6}{6}{7}
+\ganttbar{  store i32 \%8, i32* \%ix, align 4}{6}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{6}{5}
+\begin{ganttitle}
+\numtitle{0}{1}{4}{1}
+\end{ganttitle}
+\ganttbar{  \%10 = load i32* \%ix, align 4}{1}{2}
+\ganttcon{3}{1}{3}{2}
+\ganttbar{  \%11 = and i32 \%10, 2147483647}{3}{1}
+\ganttcon{4}{2}{3}{4}
+\ganttcon{4}{2}{3}{3}
+\ganttbar{  store i32 \%11, i32* \%ix, align 4}{3}{1}
+\ganttbar{  \%12 = icmp ult i32 \%11, 838860800}{3}{1}
+\ganttcon{4}{4}{3}{5}
+\ganttbar{  br i1 \%12, label \%13, label \%19}{3}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{5}{10}
+\begin{ganttitle}
+\numtitle{0}{1}{9}{1}
+\end{ganttitle}
+\ganttbar{  \%14 = load float* \%2, align 4}{1}{2}
+\ganttcon{3}{1}{3}{2}
+\ganttbar{  \%15 = fptosi float \%14 to i32}{3}{6}
+\ganttcon{9}{2}{9}{3}
+\ganttbar{  \%16 = icmp eq i32 \%15, 0}{9}{1}
+\ganttcon{10}{3}{9}{4}
+\ganttbar{  br i1 \%16, label \%17, label \%18}{9}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{3}{3}
+\begin{ganttitle}
+\numtitle{0}{1}{2}{1}
+\end{ganttitle}
+\ganttbar{  store float 1.000000e+00, float* \%1, align 4}{1}{1}
+\ganttbar{  br label \%72}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{2}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  br label \%19}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{19}{152}
+\begin{ganttitle}
+\numtitle{0}{1}{151}{1}
+\end{ganttitle}
+\ganttbar{  \%20 = load float* \%2, align 4}{1}{2}
+\ganttcon{3}{1}{3}{3}
+\ganttcon{3}{1}{3}{3}
+\ganttbar{  \%33 = load i32* \%ix, align 4}{1}{2}
+\ganttcon{3}{2}{3}{4}
+\ganttbar{  \%21 = fmul float \%20, \%20}{3}{11}
+\ganttcon{14}{3}{139}{17}
+\ganttcon{14}{3}{114}{15}
+\ganttcon{14}{3}{89}{13}
+\ganttcon{14}{3}{64}{11}
+\ganttcon{14}{3}{39}{9}
+\ganttcon{14}{3}{14}{7}
+\ganttcon{14}{3}{14}{6}
+\ganttbar{  \%34 = icmp slt i32 \%33, 1050253722}{3}{1}
+\ganttcon{4}{4}{3}{5}
+\ganttbar{  br i1 \%34, label \%35, label \%46}{3}{1}
+\ganttbar{  store float \%21, float* \%z, align 4}{14}{1}
+\ganttbar{  \%22 = fmul float \%21, 0xBDA8FAE9C0000000}{14}{11}
+\ganttcon{25}{7}{25}{8}
+\ganttbar{  \%23 = fadd float \%22, 0x3E21EE9EC0000000}{25}{14}
+\ganttcon{39}{8}{39}{9}
+\ganttbar{  \%24 = fmul float \%21, \%23}{39}{11}
+\ganttcon{50}{9}{50}{10}
+\ganttbar{  \%25 = fadd float \%24, 0xBE927E4F80000000}{50}{14}
+\ganttcon{64}{10}{64}{11}
+\ganttbar{  \%26 = fmul float \%21, \%25}{64}{11}
+\ganttcon{75}{11}{75}{12}
+\ganttbar{  \%27 = fadd float \%26, 0x3EFA01A020000000}{75}{14}
+\ganttcon{89}{12}{89}{13}
+\ganttbar{  \%28 = fmul float \%21, \%27}{89}{11}
+\ganttcon{100}{13}{100}{14}
+\ganttbar{  \%29 = fadd float \%28, 0xBF56C16C20000000}{100}{14}
+\ganttcon{114}{14}{114}{15}
+\ganttbar{  \%30 = fmul float \%21, \%29}{114}{11}
+\ganttcon{125}{15}{125}{16}
+\ganttbar{  \%31 = fadd float \%30, 0x3FA5555560000000}{125}{14}
+\ganttcon{139}{16}{139}{17}
+\ganttbar{  \%32 = fmul float \%21, \%31}{139}{11}
+\ganttcon{150}{17}{150}{18}
+\ganttbar{  store float \%32, float* \%r, align 4}{150}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{13}{59}
+\begin{ganttitle}
+\numtitle{0}{1}{58}{1}
+\end{ganttitle}
+\ganttbar{  \%36 = load float* \%z, align 4}{1}{2}
+\ganttcon{3}{1}{3}{6}
+\ganttcon{3}{1}{5}{8}
+\ganttbar{  \%38 = load float* \%r, align 4}{1}{2}
+\ganttcon{3}{2}{3}{6}
+\ganttbar{  br label \%72}{1}{1}
+\ganttbar{  \%40 = load float* \%2, align 4}{2}{2}
+\ganttcon{4}{4}{4}{7}
+\ganttbar{  \%41 = load float* \%3, align 4}{2}{2}
+\ganttcon{4}{5}{4}{7}
+\ganttbar{  \%39 = fmul float \%36, \%38}{3}{11}
+\ganttcon{14}{6}{15}{9}
+\ganttbar{  \%42 = fmul float \%40, \%41}{4}{11}
+\ganttcon{15}{7}{15}{9}
+\ganttbar{  \%37 = fmul float \%36, 5.000000e-01}{5}{11}
+\ganttcon{16}{8}{29}{10}
+\ganttbar{  \%43 = fsub float \%39, \%42}{15}{14}
+\ganttcon{29}{9}{29}{10}
+\ganttbar{  \%44 = fsub float \%37, \%43}{29}{14}
+\ganttcon{43}{10}{43}{11}
+\ganttbar{  \%45 = fsub float 1.000000e+00, \%44}{43}{14}
+\ganttcon{57}{11}{57}{12}
+\ganttbar{  store float \%45, float* \%1, align 4}{57}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{4}{4}
+\begin{ganttitle}
+\numtitle{0}{1}{3}{1}
+\end{ganttitle}
+\ganttbar{  \%47 = load i32* \%ix, align 4}{1}{2}
+\ganttcon{3}{1}{3}{2}
+\ganttbar{  \%48 = icmp sgt i32 \%47, 1061683200}{3}{1}
+\ganttcon{4}{2}{3}{3}
+\ganttbar{  br i1 \%48, label \%49, label \%50}{3}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{3}{3}
+\begin{ganttitle}
+\numtitle{0}{1}{2}{1}
+\end{ganttitle}
+\ganttbar{  store float 2.812500e-01, float* \%qx, align 4}{1}{1}
+\ganttbar{  br label \%58}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{2}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  br label \%51}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{9}{8}
+\begin{ganttitle}
+\numtitle{0}{1}{7}{1}
+\end{ganttitle}
+\ganttbar{  \%52 = load i32* \%ix, align 4}{1}{2}
+\ganttcon{3}{1}{3}{5}
+\ganttbar{  \%54 = bitcast \%union.ieee\_float\_shape\_type* \%sf\_u to i32*}{1}{1}
+\ganttcon{2}{2}{3}{6}
+\ganttbar{  \%55 = getelementptr inbounds \%union.ieee\_float\_shape\_type* \%sf\_u, i32 0...}{1}{1}
+\ganttcon{2}{3}{4}{7}
+\ganttbar{  br label \%57}{1}{1}
+\ganttbar{  \%53 = add nsw i32 \%52, -16777216}{3}{1}
+\ganttcon{4}{5}{3}{6}
+\ganttbar{  store i32 \%53, i32* \%54, align 4}{3}{1}
+\ganttbar{  \%56 = load float* \%55, align 4}{4}{2}
+\ganttcon{6}{7}{6}{8}
+\ganttbar{  store float \%56, float* \%qx, align 4}{6}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{2}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  br label \%58}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{16}{60}
+\begin{ganttitle}
+\numtitle{0}{1}{59}{1}
+\end{ganttitle}
+\ganttbar{  \%59 = load float* \%z, align 4}{1}{2}
+\ganttcon{3}{1}{4}{8}
+\ganttcon{3}{1}{3}{6}
+\ganttbar{  \%61 = load float* \%qx, align 4}{1}{2}
+\ganttcon{3}{2}{17}{12}
+\ganttcon{3}{2}{14}{10}
+\ganttbar{  br label \%72}{1}{1}
+\ganttbar{  \%64 = load float* \%r, align 4}{2}{2}
+\ganttcon{4}{4}{4}{8}
+\ganttbar{  \%66 = load float* \%2, align 4}{2}{2}
+\ganttcon{4}{5}{5}{9}
+\ganttbar{  \%60 = fmul float \%59, 5.000000e-01}{3}{11}
+\ganttcon{14}{6}{14}{10}
+\ganttbar{  \%67 = load float* \%3, align 4}{3}{2}
+\ganttcon{5}{7}{5}{9}
+\ganttbar{  \%65 = fmul float \%59, \%64}{4}{11}
+\ganttcon{15}{8}{16}{11}
+\ganttbar{  \%68 = fmul float \%66, \%67}{5}{11}
+\ganttcon{16}{9}{16}{11}
+\ganttbar{  \%62 = fsub float \%60, \%61}{14}{14}
+\ganttcon{28}{10}{30}{13}
+\ganttbar{  \%69 = fsub float \%65, \%68}{16}{14}
+\ganttcon{30}{11}{30}{13}
+\ganttbar{  \%63 = fsub float 1.000000e+00, \%61}{17}{14}
+\ganttcon{31}{12}{44}{14}
+\ganttbar{  \%70 = fsub float \%62, \%69}{30}{14}
+\ganttcon{44}{13}{44}{14}
+\ganttbar{  \%71 = fsub float \%63, \%70}{44}{14}
+\ganttcon{58}{14}{58}{15}
+\ganttbar{  store float \%71, float* \%1, align 4}{58}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{3}{4}
+\begin{ganttitle}
+\numtitle{0}{1}{3}{1}
+\end{ganttitle}
+\ganttbar{  \%73 = load float* \%1, align 4}{1}{2}
+\ganttcon{3}{1}{3}{2}
+\ganttbar{  ret float \%73}{3}{1}
+\end{gantt}
+\end{figure}
+\end{document}

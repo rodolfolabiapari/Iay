@@ -1,0 +1,14 @@
+digraph {
+Node0x2cd3b30[label="  %34 = load i32* %ix, align 4"];
+Node0x2cd3b30 -> Node0x2cd3b30[label="D:0.00ns L:2",color=blue];
+Node0x2cd8ce0[label="  %35 = lshr i32 %34, 23"];
+Node0x2cd8ce0 -> Node0x2cd8ce0[label="D:0.00ns L:0",color=blue];
+Node0x2cd8dc0[label="  %36 = and i32 %35, 255"];
+Node0x2cd8dc0 -> Node0x2cd8dc0[label="D:0.00ns L:0",color=blue];
+Node0x2cd8ea0[label="  %37 = add nsw i32 %36, -25"];
+Node0x2cd8ea0 -> Node0x2cd8ea0[label="D:2.50ns L:0",color=blue];
+Node0x2cd9060[label="  %38 = load i32* %3, align 4"];
+Node0x2cd9060 -> Node0x2cd9060[label="D:0.00ns L:2",color=blue];
+Node0x2cd9140[label="  %39 = icmp slt i32 %38, -50000"];
+Node0x2cd9140 -> Node0x2cd9140[label="D:3.36ns L:0",color=blue];
+}

@@ -1,0 +1,6 @@
+digraph {
+Node0x2cc26c0[label="  %15 = load i32* %j0, align 4"];
+Node0x2cc26c0 -> Node0x2cc26c0[label="D:0.00ns L:2",color=blue];
+Node0x2cc27a0[label="  %16 = icmp slt i32 %15, 0"];
+Node0x2cc27a0 -> Node0x2cc27a0[label="D:3.36ns L:0",color=blue];
+}

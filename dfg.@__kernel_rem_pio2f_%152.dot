@@ -1,0 +1,12 @@
+digraph {
+Node0x2d11860[label="  %153 = load i32* %jz, align 4"];
+Node0x2d11860 -> Node0x2d11860[label="D:0.00ns L:2",color=blue];
+Node0x2d11940[label="  %154 = add nsw i32 %153, -1"];
+Node0x2d11940 -> Node0x2d11940[label="D:2.50ns L:0",color=blue];
+Node0x2d11a20[label="  %155 = getelementptr inbounds [20 x i3..."];
+Node0x2d11a20 -> Node0x2d11a20[label="D:20.00ns L:0",color=blue];
+Node0x2d11b00[label="  %156 = load i32* %155, align 4"];
+Node0x2d11b00 -> Node0x2d11b00[label="D:0.00ns L:2",color=blue];
+Node0x2d11be0[label="  %157 = ashr i32 %156, 8"];
+Node0x2d11be0 -> Node0x2d11be0[label="D:0.00ns L:0",color=blue];
+}

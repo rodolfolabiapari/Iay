@@ -1,0 +1,16 @@
+digraph {
+Node0x2ea8e60[label="  %28 = getelementptr inbounds [2 x floa..."];
+Node0x2ea8e60 -> Node0x2ea8e60[label="D:0.00ns L:0",color=blue];
+Node0x2ea8f40[label="  %29 = load float* %28, align 4"];
+Node0x2ea8f40 -> Node0x2ea8f40[label="D:0.00ns L:2",color=blue];
+Node0x2ea91e0[label="  %32 = call float @__kernel_sinf(float ..."];
+Node0x2ea8f40 -> Node0x2ea91e0[label="D:0.00ns L:2",color=red];
+Node0x2ea9020[label="  %30 = getelementptr inbounds [2 x floa..."];
+Node0x2ea9020 -> Node0x2ea9020[label="D:0.00ns L:0",color=blue];
+Node0x2ea9100[label="  %31 = load float* %30, align 4"];
+Node0x2ea9100 -> Node0x2ea9100[label="D:0.00ns L:2",color=blue];
+Node0x2ea9100 -> Node0x2ea91e0[label="D:0.00ns L:2",color=red];
+Node0x2ea91e0 -> Node0x2ea91e0[label="D:0.00ns L:1",color=blue];
+Node0x2ea92c0[label="  store float %32, float* %1, align 4"];
+Node0x2ea91e0 -> Node0x2ea92c0[label="D:0.00ns L:1",color=red];
+}

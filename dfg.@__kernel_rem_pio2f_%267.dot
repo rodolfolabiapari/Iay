@@ -1,0 +1,28 @@
+digraph {
+Node0x2d19200[label="  %268 = load i32* %jv, align 4"];
+Node0x2d19200 -> Node0x2d19200[label="D:0.00ns L:2",color=blue];
+Node0x2d192e0[label="  %269 = load i32* %i, align 4"];
+Node0x2d192e0 -> Node0x2d192e0[label="D:0.00ns L:2",color=blue];
+Node0x2d193c0[label="  %270 = add nsw i32 %268, %269"];
+Node0x2d193c0 -> Node0x2d193c0[label="D:2.50ns L:0",color=blue];
+Node0x2d194a0[label="  %271 = load i32** %6, align 4"];
+Node0x2d194a0 -> Node0x2d194a0[label="D:0.00ns L:2",color=blue];
+Node0x2d19580[label="  %272 = getelementptr inbounds i32* %27..."];
+Node0x2d19580 -> Node0x2d19580[label="D:20.00ns L:0",color=blue];
+Node0x2d19660[label="  %273 = load i32* %272, align 4"];
+Node0x2d19660 -> Node0x2d19660[label="D:0.00ns L:2",color=blue];
+Node0x2d19c80[label="  store i32 0, i32* %j, align 4"];
+Node0x2d19660 -> Node0x2d19c80[label="D:0.00ns L:2",color=red];
+Node0x2d19d60[label="  store float 0.000000e+00, float* %fw, ..."];
+Node0x2d19660 -> Node0x2d19d60[label="D:0.00ns L:2",color=red];
+Node0x2d19740[label="  %274 = sitofp i32 %273 to float"];
+Node0x2d19740 -> Node0x2d19740[label="D:3.31ns L:6",color=blue];
+Node0x2d19820[label="  %275 = load i32* %jx, align 4"];
+Node0x2d19820 -> Node0x2d19820[label="D:0.00ns L:2",color=blue];
+Node0x2d19900[label="  %276 = load i32* %i, align 4"];
+Node0x2d19900 -> Node0x2d19900[label="D:0.00ns L:2",color=blue];
+Node0x2d199e0[label="  %277 = add nsw i32 %275, %276"];
+Node0x2d199e0 -> Node0x2d199e0[label="D:2.50ns L:0",color=blue];
+Node0x2d19ac0[label="  %278 = getelementptr inbounds [20 x fl..."];
+Node0x2d19ac0 -> Node0x2d19ac0[label="D:20.00ns L:0",color=blue];
+}

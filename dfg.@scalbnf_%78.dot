@@ -1,0 +1,11 @@
+digraph {
+Node0x2cd8bd0[label="  %79 = load float* %2, align 4"];
+Node0x2cd8bd0 -> Node0x2cd8bd0[label="D:0.00ns L:2",color=blue];
+Node0x2cdc370[label="  %80 = call float @copysignf(float 0x39..."];
+Node0x2cd8bd0 -> Node0x2cdc370[label="D:0.00ns L:2",color=red];
+Node0x2cdc370 -> Node0x2cdc370[label="D:0.00ns L:1",color=blue];
+Node0x2cdc530[label="  store float %81, float* %1, align 4"];
+Node0x2cdc370 -> Node0x2cdc530[label="D:0.00ns L:1",color=red];
+Node0x2cdc450[label="  %81 = fmul float %80, 0x39B4484C000000..."];
+Node0x2cdc450 -> Node0x2cdc450[label="D:3.41ns L:11",color=blue];
+}

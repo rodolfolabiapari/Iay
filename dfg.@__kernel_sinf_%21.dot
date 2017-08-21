@@ -1,0 +1,35 @@
+digraph {
+Node0x2c91f40[label="  %22 = load float* %2, align 4"];
+Node0x2c91f40 -> Node0x2c91f40[label="D:0.00ns L:2",color=blue];
+Node0x2c91f40 -> Node0x2c91f40[label="D:0.00ns L:2",color=blue];
+Node0x2c91f40 -> Node0x2c91f40[label="D:0.00ns L:2",color=blue];
+Node0x2c92020[label="  %23 = fmul float %22, %22"];
+Node0x2c92020 -> Node0x2c92020[label="D:3.41ns L:11",color=blue];
+Node0x2c92020 -> Node0x2c92020[label="D:3.41ns L:11",color=blue];
+Node0x2c92020 -> Node0x2c92020[label="D:3.41ns L:11",color=blue];
+Node0x2c92020 -> Node0x2c92020[label="D:3.41ns L:11",color=blue];
+Node0x2c92020 -> Node0x2c92020[label="D:3.41ns L:11",color=blue];
+Node0x2c92020 -> Node0x2c92020[label="D:3.41ns L:11",color=blue];
+Node0x2c921e0[label="  %24 = fmul float %23, %22"];
+Node0x2c921e0 -> Node0x2c921e0[label="D:3.41ns L:11",color=blue];
+Node0x2c923a0[label="  %25 = fmul float %23, 0x3DE5D93A600000..."];
+Node0x2c923a0 -> Node0x2c923a0[label="D:3.41ns L:11",color=blue];
+Node0x2c92480[label="  %26 = fadd float %25, 0xBE5AE5E6800000..."];
+Node0x2c92480 -> Node0x2c92480[label="D:3.24ns L:14",color=blue];
+Node0x2c92560[label="  %27 = fmul float %23, %26"];
+Node0x2c92560 -> Node0x2c92560[label="D:3.41ns L:11",color=blue];
+Node0x2c92640[label="  %28 = fadd float %27, 0x3EC71DE3600000..."];
+Node0x2c92640 -> Node0x2c92640[label="D:3.24ns L:14",color=blue];
+Node0x2c92720[label="  %29 = fmul float %23, %28"];
+Node0x2c92720 -> Node0x2c92720[label="D:3.41ns L:11",color=blue];
+Node0x2c92800[label="  %30 = fadd float %29, 0xBF2A01A0200000..."];
+Node0x2c92800 -> Node0x2c92800[label="D:3.24ns L:14",color=blue];
+Node0x2c928e0[label="  %31 = fmul float %23, %30"];
+Node0x2c928e0 -> Node0x2c928e0[label="D:3.41ns L:11",color=blue];
+Node0x2c929c0[label="  %32 = fadd float %31, 0x3F811111200000..."];
+Node0x2c929c0 -> Node0x2c929c0[label="D:3.24ns L:14",color=blue];
+Node0x2c92b80[label="  %33 = load i32* %4, align 4"];
+Node0x2c92b80 -> Node0x2c92b80[label="D:0.00ns L:2",color=blue];
+Node0x2c8ee80[label="  %34 = icmp eq i32 %33, 0"];
+Node0x2c8ee80 -> Node0x2c8ee80[label="D:2.49ns L:0",color=blue];
+}

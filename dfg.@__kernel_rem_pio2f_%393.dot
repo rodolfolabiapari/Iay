@@ -1,0 +1,25 @@
+digraph {
+Node0x2d30680[label="  %394 = load i32* %k, align 4"];
+Node0x2d30680 -> Node0x2d30680[label="D:0.00ns L:2",color=blue];
+Node0x2d30680 -> Node0x2d30680[label="D:0.00ns L:2",color=blue];
+Node0x2d30760[label="  %395 = getelementptr inbounds [11 x fl..."];
+Node0x2d30760 -> Node0x2d30760[label="D:20.00ns L:0",color=blue];
+Node0x2d30840[label="  %396 = load float* %395, align 4"];
+Node0x2d30840 -> Node0x2d30840[label="D:0.00ns L:2",color=blue];
+Node0x2d30920[label="  %397 = load i32* %i, align 4"];
+Node0x2d30920 -> Node0x2d30920[label="D:0.00ns L:2",color=blue];
+Node0x2d30a00[label="  %398 = add nsw i32 %397, %394"];
+Node0x2d30a00 -> Node0x2d30a00[label="D:2.50ns L:0",color=blue];
+Node0x2d30ae0[label="  %399 = getelementptr inbounds [20 x fl..."];
+Node0x2d30ae0 -> Node0x2d30ae0[label="D:20.00ns L:0",color=blue];
+Node0x2d30bc0[label="  %400 = load float* %399, align 4"];
+Node0x2d30bc0 -> Node0x2d30bc0[label="D:0.00ns L:2",color=blue];
+Node0x2d30ca0[label="  %401 = fmul float %396, %400"];
+Node0x2d30ca0 -> Node0x2d30ca0[label="D:3.41ns L:11",color=blue];
+Node0x2d30d80[label="  %402 = load float* %fw, align 4"];
+Node0x2d30d80 -> Node0x2d30d80[label="D:0.00ns L:2",color=blue];
+Node0x2d30f40[label="  store float %403, float* %fw, align 4"];
+Node0x2d30d80 -> Node0x2d30f40[label="D:0.00ns L:2",color=red];
+Node0x2d30e60[label="  %403 = fadd float %402, %401"];
+Node0x2d30e60 -> Node0x2d30e60[label="D:3.24ns L:14",color=blue];
+}

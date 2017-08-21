@@ -1,0 +1,15 @@
+digraph {
+Node0x2e17f70[label="  %149 = load i32* %j, align 4"];
+Node0x2e17f70 -> Node0x2e17f70[label="D:0.00ns L:2",color=blue];
+Node0x2e18050[label="  %150 = load i32* %high, align 4"];
+Node0x2e18050 -> Node0x2e18050[label="D:0.00ns L:2",color=blue];
+Node0x2e18130[label="  %151 = lshr i32 %150, 23"];
+Node0x2e18130 -> Node0x2e18130[label="D:0.00ns L:0",color=blue];
+Node0x2e18210[label="  %152 = and i32 %151, 255"];
+Node0x2e18210 -> Node0x2e18210[label="D:0.00ns L:0",color=blue];
+Node0x2e1ef70[label="  %153 = sub i32 %149, %152"];
+Node0x2e1ef70 -> Node0x2e1ef70[label="D:2.40ns L:0",color=blue];
+Node0x2e1ef70 -> Node0x2e1ef70[label="D:2.40ns L:0",color=blue];
+Node0x2e1f130[label="  %154 = icmp sgt i32 %153, 25"];
+Node0x2e1f130 -> Node0x2e1f130[label="D:3.13ns L:0",color=blue];
+}

@@ -1,0 +1,12 @@
+digraph {
+Node0x2cc50f0[label="  %53 = load i32* %i, align 4"];
+Node0x2cc50f0 -> Node0x2cc50f0[label="D:0.00ns L:2",color=blue];
+Node0x2cc51d0[label="  %54 = xor i32 %53, -1"];
+Node0x2cc51d0 -> Node0x2cc51d0[label="D:0.91ns L:0",color=blue];
+Node0x2cc52b0[label="  %55 = load i32* %i0, align 4"];
+Node0x2cc52b0 -> Node0x2cc52b0[label="D:0.00ns L:2",color=blue];
+Node0x2cc5470[label="  store i32 %56, i32* %i0, align 4"];
+Node0x2cc52b0 -> Node0x2cc5470[label="D:0.00ns L:2",color=red];
+Node0x2cc5390[label="  %56 = and i32 %55, %54"];
+Node0x2cc5390 -> Node0x2cc5390[label="D:0.87ns L:0",color=blue];
+}

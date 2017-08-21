@@ -1,0 +1,6 @@
+digraph {
+Node0x2d11e80[label="  %159 = load float* %z, align 4"];
+Node0x2d11e80 -> Node0x2d11e80[label="D:0.00ns L:2",color=blue];
+Node0x2d11f60[label="  %160 = fcmp ult float %159, 5.000000e-..."];
+Node0x2d11f60 -> Node0x2d11f60[label="D:3.68ns L:1",color=blue];
+}

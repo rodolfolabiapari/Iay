@@ -1,0 +1,134 @@
+\documentclass[landscape]{article}
+\usepackage{gantt}
+\pagestyle{empty}
+\begin{document}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{4}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  \%1 = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([30 x i8]*...}{1}{1}
+\ganttbar{  \%2 = icmp slt i32 \%height, 1}{1}{1}
+\ganttcon{2}{2}{1}{3}
+\ganttbar{  br i1 \%2, label \%.\_crit\_edge4, label \%.preheader.lr.ph}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{3}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  \%3 = icmp slt i32 \%width, 1}{1}{1}
+\ganttcon{2}{1}{1}{2}
+\ganttbar{  br i1 \%3, label \%.preheader.us.preheader, label \%.lr.ph.preheader}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{2}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  br label \%.lr.ph}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{2}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  br label \%.preheader.us}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{5}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  \%indvar = phi i32 [ \%indvar.next, \%.preheader.us ], [ 0, \%.preheader.us.pr...}{1}{1}
+\ganttcon{2}{1}{1}{2}
+\ganttbar{  \%indvar.next = add i32 \%indvar, 1}{1}{1}
+\ganttcon{2}{2}{1}{3}
+\ganttcon{2}{2}{1}{1}
+\ganttbar{  \%exitcond1 = icmp eq i32 \%indvar.next, \%height}{1}{1}
+\ganttcon{2}{3}{1}{4}
+\ganttbar{  br i1 \%exitcond1, label \%.\_crit\_edge4.loopexit, label \%.preheader.us}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{5}{8}
+\begin{ganttitle}
+\numtitle{0}{1}{7}{1}
+\end{ganttitle}
+\ganttbar{  \%indvar5 = phi i32 [ \%indvar.next6, \%.\_crit\_edge ], [ 0, \%.lr.ph.prehead...}{1}{1}
+\ganttcon{2}{1}{1}{2}
+\ganttbar{  \%row\_pos.02 = add i32 \%indvar5, 1}{1}{1}
+\ganttcon{2}{2}{1}{3}
+\ganttbar{  \%4 = sitofp i32 \%row\_pos.02 to float}{1}{6}
+\ganttbar{  br label \%5}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{11}{20}
+\begin{ganttitle}
+\numtitle{0}{1}{19}{1}
+\end{ganttitle}
+\ganttbar{  \%indvar2 = phi i32 [ \%indvar.next3, \%5 ], [ 0, \%.lr.ph ]}{1}{1}
+\ganttcon{2}{1}{1}{5}
+\ganttcon{2}{1}{1}{3}
+\ganttcon{2}{1}{1}{2}
+\ganttbar{  \%6 = add i32 \%indvar2, 1}{1}{1}
+\ganttcon{2}{2}{2}{8}
+\ganttbar{  \%col\_pos.01 = add i32 \%indvar2, 1}{1}{1}
+\ganttcon{2}{3}{1}{4}
+\ganttbar{  \%7 = sitofp i32 \%col\_pos.01 to float}{1}{6}
+\ganttcon{7}{4}{7}{9}
+\ganttbar{  \%indvar.next3 = add i32 \%indvar2, 1}{1}{1}
+\ganttcon{2}{5}{1}{6}
+\ganttcon{2}{5}{1}{1}
+\ganttbar{  \%exitcond4 = icmp eq i32 \%indvar.next3, \%width}{1}{1}
+\ganttcon{2}{6}{1}{7}
+\ganttbar{  br i1 \%exitcond4, label \%.\_crit\_edge, label \%5}{1}{1}
+\ganttbar{  \%scevgep = getelementptr [1 x [512 x [512 x float]]]* @data, i32 1, i32 0, i3...}{2}{1}
+\ganttcon{3}{8}{18}{10}
+\ganttbar{  \%8 = fmul float \%4, \%7}{7}{11}
+\ganttcon{18}{9}{18}{10}
+\ganttbar{  store float \%8, float* \%scevgep, align 4, !tbaa !1}{18}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{4}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  \%indvar.next6 = add i32 \%indvar5, 1}{1}{1}
+\ganttcon{2}{1}{1}{2}
+\ganttbar{  \%exitcond = icmp eq i32 \%indvar.next6, \%height}{1}{1}
+\ganttcon{2}{2}{1}{3}
+\ganttbar{  br i1 \%exitcond, label \%.\_crit\_edge4.loopexit8, label \%.lr.ph}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{2}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  br label \%.\_crit\_edge4}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{2}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  br label \%.\_crit\_edge4}{1}{1}
+\end{gantt}
+\end{figure}
+\begin{figure}
+\begin{gantt}[fontsize=\scriptsize]{2}{2}
+\begin{ganttitle}
+\numtitle{0}{1}{1}{1}
+\end{ganttitle}
+\ganttbar{  ret void}{1}{1}
+\end{gantt}
+\end{figure}
+\end{document}

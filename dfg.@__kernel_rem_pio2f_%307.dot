@@ -1,0 +1,8 @@
+digraph {
+Node0x2d101f0[label="  %308 = load i32* %k, align 4"];
+Node0x2d101f0 -> Node0x2d101f0[label="D:0.00ns L:2",color=blue];
+Node0x2d102d0[label="  %309 = load i32* %jz, align 4"];
+Node0x2d102d0 -> Node0x2d102d0[label="D:0.00ns L:2",color=blue];
+Node0x2d103b0[label="  %310 = add nsw i32 %309, %308"];
+Node0x2d103b0 -> Node0x2d103b0[label="D:2.50ns L:0",color=blue];
+}

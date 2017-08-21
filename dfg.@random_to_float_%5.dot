@@ -1,0 +1,21 @@
+digraph {
+Node0x2c4baa0[label="  %indvar2 = phi i32 [ %indvar.next3, %5..."];
+Node0x2c4baa0 -> Node0x2c4baa0[label="D:0.00ns L:0",color=blue];
+Node0x2c4baa0 -> Node0x2c4baa0[label="D:0.00ns L:0",color=blue];
+Node0x2c4baa0 -> Node0x2c4baa0[label="D:0.00ns L:0",color=blue];
+Node0x2c4bb80[label="  %6 = add i32 %indvar2, 1"];
+Node0x2c4bb80 -> Node0x2c4bb80[label="D:2.50ns L:0",color=blue];
+Node0x2c4bc60[label="  %scevgep = getelementptr [1 x [512 x [..."];
+Node0x2c4bc60 -> Node0x2c4bc60[label="D:20.00ns L:0",color=blue];
+Node0x2c4be00[label="  %col_pos.01 = add i32 %indvar2, 1"];
+Node0x2c4be00 -> Node0x2c4be00[label="D:2.50ns L:0",color=blue];
+Node0x2c4bee0[label="  %7 = sitofp i32 %col_pos.01 to float"];
+Node0x2c4bee0 -> Node0x2c4bee0[label="D:3.31ns L:6",color=blue];
+Node0x2c4bfc0[label="  %8 = fmul float %4, %7"];
+Node0x2c4bfc0 -> Node0x2c4bfc0[label="D:3.41ns L:11",color=blue];
+Node0x2c4c180[label="  %indvar.next3 = add i32 %indvar2, 1"];
+Node0x2c4c180 -> Node0x2c4c180[label="D:2.50ns L:0",color=blue];
+Node0x2c4c180 -> Node0x2c4c180[label="D:2.50ns L:0",color=blue];
+Node0x2c4c260[label="  %exitcond4 = icmp eq i32 %indvar.next3..."];
+Node0x2c4c260 -> Node0x2c4c260[label="D:2.49ns L:0",color=blue];
+}

@@ -1,0 +1,18 @@
+digraph {
+Node0x2c8f040[label="  %36 = load float* %2, align 4"];
+Node0x2c8f040 -> Node0x2c8f040[label="D:0.00ns L:2",color=blue];
+Node0x2c8f120[label="  %37 = load float* %v, align 4"];
+Node0x2c8f120 -> Node0x2c8f120[label="D:0.00ns L:2",color=blue];
+Node0x2c93470[label="  %38 = load float* %z, align 4"];
+Node0x2c93470 -> Node0x2c93470[label="D:0.00ns L:2",color=blue];
+Node0x2c93550[label="  %39 = load float* %r, align 4"];
+Node0x2c93550 -> Node0x2c93550[label="D:0.00ns L:2",color=blue];
+Node0x2c93630[label="  %40 = fmul float %38, %39"];
+Node0x2c93630 -> Node0x2c93630[label="D:3.41ns L:11",color=blue];
+Node0x2c93710[label="  %41 = fadd float %40, 0xBFC55555600000..."];
+Node0x2c93710 -> Node0x2c93710[label="D:3.24ns L:14",color=blue];
+Node0x2c937f0[label="  %42 = fmul float %37, %41"];
+Node0x2c937f0 -> Node0x2c937f0[label="D:3.41ns L:11",color=blue];
+Node0x2c938d0[label="  %43 = fadd float %36, %42"];
+Node0x2c938d0 -> Node0x2c938d0[label="D:3.24ns L:14",color=blue];
+}
