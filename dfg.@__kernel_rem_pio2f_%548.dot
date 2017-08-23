@@ -1,4 +1,0 @@
-digraph {
-Node0x2d3a6a0[label="  %549 = load i32* %jz, align 4"];
-Node0x2d3a6a0 -> Node0x2d3a6a0[label="D:0.00ns L:2",color=blue];
-}

@@ -1,7 +1,0 @@
-digraph {
-Node0x2ea8680[label="  %20 = load float* %2, align 4"];
-Node0x2ea8680 -> Node0x2ea8680[label="D:0.00ns L:2",color=blue];
-Node0x2ea8680 -> Node0x2ea8680[label="D:0.00ns L:2",color=blue];
-Node0x2ea8760[label="  %21 = fsub float %20, %20"];
-Node0x2ea8760 -> Node0x2ea8760[label="D:3.20ns L:14",color=blue];
-}

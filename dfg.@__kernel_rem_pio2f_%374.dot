@@ -1,6 +1,0 @@
-digraph {
-Node0x2d22530[label="  %375 = load i32* %i, align 4"];
-Node0x2d22530 -> Node0x2d22530[label="D:0.00ns L:2",color=blue];
-Node0x2d22610[label="  %376 = add nsw i32 %375, -1"];
-Node0x2d22610 -> Node0x2d22610[label="D:2.50ns L:0",color=blue];
-}

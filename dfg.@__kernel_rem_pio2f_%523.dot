@@ -1,7 +1,0 @@
-digraph {
-Node0x2d38b80[label="  %storemerge5 = phi i32 [ %522, %521 ],..."];
-Node0x2d38b80 -> Node0x2d38b80[label="D:0.00ns L:0",color=blue];
-Node0x2d38b80 -> Node0x2d38b80[label="D:0.00ns L:0",color=blue];
-Node0x2d38d40[label="  %524 = icmp sgt i32 %storemerge5, 1"];
-Node0x2d38d40 -> Node0x2d38d40[label="D:3.13ns L:0",color=blue];
-}

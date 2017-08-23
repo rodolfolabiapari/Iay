@@ -1,8 +1,0 @@
-digraph {
-Node0x2ee6840[label="  %61 = add i32 %i2rev.1, %ibit.0"];
-Node0x2ee6840 -> Node0x2ee6840[label="D:2.50ns L:0",color=blue];
-Node0x2ee6920[label="  %62 = icmp ugt i32 %34, %14"];
-Node0x2ee6920 -> Node0x2ee6920[label="D:3.12ns L:0",color=blue];
-Node0x2ee6a00[label="  %indvar.next4 = add i32 %indvar3, 1"];
-Node0x2ee6a00 -> Node0x2ee6a00[label="D:2.50ns L:0",color=blue];
-}

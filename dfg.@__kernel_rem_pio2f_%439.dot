@@ -1,6 +1,0 @@
-digraph {
-Node0x2d33400[label="  %440 = phi float [ %435, %434 ], [ %43..."];
-Node0x2d33400 -> Node0x2d33400[label="D:0.00ns L:0",color=blue];
-Node0x2d334e0[label="  %441 = load float** %2, align 4"];
-Node0x2d334e0 -> Node0x2d334e0[label="D:0.00ns L:2",color=blue];
-}

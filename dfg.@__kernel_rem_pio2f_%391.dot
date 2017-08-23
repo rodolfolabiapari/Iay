@@ -1,4 +1,0 @@
-digraph {
-Node0x2d304c0[label="  %392 = phi i1 [ false, %382 ], [ %390,..."];
-Node0x2d304c0 -> Node0x2d304c0[label="D:0.00ns L:0",color=blue];
-}

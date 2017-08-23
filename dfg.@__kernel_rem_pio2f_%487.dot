@@ -1,6 +1,0 @@
-digraph {
-Node0x2d366c0[label="  %488 = load float* %fw, align 4"];
-Node0x2d366c0 -> Node0x2d366c0[label="D:0.00ns L:2",color=blue];
-Node0x2d367a0[label="  %489 = fsub float -0.000000e+00, %488"];
-Node0x2d367a0 -> Node0x2d367a0[label="D:3.20ns L:14",color=blue];
-}

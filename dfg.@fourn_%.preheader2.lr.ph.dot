@@ -1,4 +1,0 @@
-digraph {
-Node0x2ee3370[label="  %36 = add i32 %i2rev.09, 1"];
-Node0x2ee3370 -> Node0x2ee3370[label="D:2.50ns L:0",color=blue];
-}

@@ -1,8 +1,0 @@
-digraph {
-Node0x2cd7dd0[label="  %26 = load float* %2, align 4"];
-Node0x2cd7dd0 -> Node0x2cd7dd0[label="D:0.00ns L:2",color=blue];
-Node0x2cd7f90[label="  store float %27, float* %2, align 4"];
-Node0x2cd7dd0 -> Node0x2cd7f90[label="D:0.00ns L:2",color=red];
-Node0x2cd7eb0[label="  %27 = fmul float %26, 0x41800000000000..."];
-Node0x2cd7eb0 -> Node0x2cd7eb0[label="D:3.41ns L:11",color=blue];
-}

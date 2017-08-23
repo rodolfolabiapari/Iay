@@ -10,6 +10,22 @@ int nn1 = 1, nn2 = 512, nn3 = 512;
 float data[  3][512][512], speq[  3][2 * 512];
 
 
+void cl_cleanup() {
+   if (kernel) {
+      clReleaseKernel(kernel);
+   }
+   if (program) {
+      clReleaseProgram(program);
+   }
+   if (queue) {
+      clReleaseCommandQueue(queue);
+   }
+   if (context) {
+      clReleaseContext(context);
+   }
+}
+
+
 #define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
 
 ////////////////////////////////////////////////////////////////
@@ -282,12 +298,6 @@ int main(void)
   //free_f3tensor(data, 0, img_width, 0, img_height, 0, img_depth);
 
 
-  clReleaseKernel(kernel);
-  clReleaseProgram(program);
-  clReleaseCommandQueue(cmd_queue);
-  clReleaseEvent(event);
-  clReleaseMemObject(memobj);
-  clReleaseContext(context);
 
   printf("\n\n");
   return 0;

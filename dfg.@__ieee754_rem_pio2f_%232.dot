@@ -1,6 +1,0 @@
-digraph {
-Node0x2e247d0[label="  %233 = load float* %z, align 4"];
-Node0x2e247d0 -> Node0x2e247d0[label="D:0.00ns L:2",color=blue];
-Node0x2e248b0[label="  %234 = getelementptr inbounds [3 x flo..."];
-Node0x2e248b0 -> Node0x2e248b0[label="D:0.00ns L:0",color=blue];
-}

@@ -1,8 +1,0 @@
-digraph {
-Node0x2c75500[label="  %14 = load float* %2, align 4"];
-Node0x2c75500 -> Node0x2c75500[label="D:0.00ns L:2",color=blue];
-Node0x2c755e0[label="  %15 = fptosi float %14 to i32"];
-Node0x2c755e0 -> Node0x2c755e0[label="D:3.12ns L:6",color=blue];
-Node0x2c756c0[label="  %16 = icmp eq i32 %15, 0"];
-Node0x2c756c0 -> Node0x2c756c0[label="D:2.49ns L:0",color=blue];
-}
