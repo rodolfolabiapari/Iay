@@ -185,7 +185,20 @@ void random_to_float(int height, int width)
 ////////////////////////////////////////////////////////////////
 int main(void)
 {
-    // PNG
+  int error = 0;
+  // Get the first platform ID
+  cl_platform_id platform_id;
+  error = clGetPlatformIDs(1, &platform_id, NULL);
+  
+  // Get the first FPGA device in the platform
+  cl_device_id device_id;
+  error = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_ACCELERATOR, 1, &device_id, NULL);
+
+  // Create an OpenCL context for the FPGA device
+  cl_context = context;
+  context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &error);
+
+  // PNG
   int img_width = nn3, img_height = nn2, img_depth = nn1;
   //srand(10);
   //const char * file_name = "lenna.png\0";
