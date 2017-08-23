@@ -186,6 +186,7 @@ void random_to_float(int height, int width)
 int main(void)
 {
   int error = 0;
+  // Starting the OpenCL for FPGA
   // Get the first platform ID
   cl_platform_id platform_id;
   error = clGetPlatformIDs(1, &platform_id, NULL);
@@ -198,6 +199,54 @@ int main(void)
   cl_context = context;
   context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &error);
 
+
+  // Memory Management - code example
+  const int N  = 5;
+  int n_bytes = N * sizeof(int);
+  int host_array [N] = {3, 1, 4, 1, 5};
+
+  // Create an OpenCl command queue
+  cl_int cl_error;
+  cl_command_queue queue;
+  queue = clCreateCommandQueue(context, device_id, 0, &cl_error);
+
+  // Allocate memory on device
+  cl_mem memory;
+  memory = clCreateBuffer(context, CL_MEM_READ_WRITE, n_bytes, NULL, &cl_error);
+  cl_error = clEnqueueWriteBuffer(queue, memory, CL_TRUE, 0, n_bytes, host_array, 0, NULL, NULL);
+
+  
+  // clCreateProgramWithSource Não funciona com a intel
+  // Por isso, utiliza-se a funcao abaixo, com arquivos aocx
+  cl_program program;
+  program = CreateProgramWithBinary(context, 1, &device_id, &binary_lenght, (const unsigned char **)&binaries, &kernel_status, &cl_error);
+  
+  error = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
+
+  // Create kernels form the program
+  cl_kernel kernel;
+  clCreateKernel(program, "increment", &error);
+
+  // Allocate and transfer buffers on/to device
+  float * a_host = ...
+  cl_mem a_device = clCreateBuffer(..., CL_MEM_COPY_HOST_PTR, a_host, ...);
+  cl_float c_host = 10.8;
+
+  error = clEnqueueWriteBuffer(queue, a_device, CL_TRUE, 0, NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL);
+
+  // Set up the kernel argument list
+  error = clSetKernalArg(kernel, 0, sizeof(cl_mem),   (void *) &a_device);
+  error = clSetKernalArg(kernel, 1, sizeof(cl_float), (void *) &c_host);
+  error = clSetKernalArg(kernel, 2, sizeof(cl_int),   (void *) &NUM_ELEMENTS);
+
+  // Run the kernel on the device
+  error = clEnqueueTask(queue, a_device, CL_TRUE, 0, NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL); 
+
+
+
+
+  
+  
   // PNG
   int img_width = nn3, img_height = nn2, img_depth = nn1;
   //srand(10);
@@ -231,6 +280,14 @@ int main(void)
   //free_f3tensor(data, 1, img_width, 1, img_height, 1, img_depth);
   //free_matrix(speq, 0, img_width, 0, 2 * img_height);
   //free_f3tensor(data, 0, img_width, 0, img_height, 0, img_depth);
+
+
+  clReleaseKernel(kernel);
+  clReleaseProgram(program);
+  clReleaseCommandQueue(cmd_queue);
+  clReleaseEvent(event);
+  clReleaseMemObject(memobj);
+  clReleaseContext(context);
 
   printf("\n\n");
   return 0;
