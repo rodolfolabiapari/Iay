@@ -202,18 +202,19 @@ void random_to_float(int height, int width)
 int main(void)
 {
   int error = 0;
+  cl_int  cl_status;
+  cl_uint cl_num_platforms = 1;
+  cl_uint cl_num_devices   = 1;
   // Starting the OpenCL for FPGA
   // Get the first platform ID
-  cl_platform_id platform_id;
-  error = clGetPlatformIDs(1, &platform_id, NULL);
-  
+  cl_platform_id * platform_id = get_platforms(&cl_num_platforms, &cl_status);
+
   // Get the first FPGA device in the platform
-  cl_device_id device_id;
-  error = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_ACCELERATOR, 1, &device_id, NULL);
+  cl_device_id * device_id = get_devices(platform_id,
+    CL_DEVICE_TYPE_ACCELERATOR, &cl_num_devices, &cl_status);
 
   // Create an OpenCL context for the FPGA device
-  cl_context = context;
-  context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &error);
+  cl_context context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &error);
 
 
   // Memory Management - code example
@@ -222,7 +223,6 @@ int main(void)
   int host_array [N] = {3, 1, 4, 1, 5};
 
   // Create an OpenCl command queue
-  cl_int cl_error;
   cl_command_queue queue;
   queue = clCreateCommandQueue(context, device_id, 0, &cl_error);
 
@@ -231,12 +231,12 @@ int main(void)
   memory = clCreateBuffer(context, CL_MEM_READ_WRITE, n_bytes, NULL, &cl_error);
   cl_error = clEnqueueWriteBuffer(queue, memory, CL_TRUE, 0, n_bytes, host_array, 0, NULL, NULL);
 
-  
+
   // clCreateProgramWithSource Não funciona com a intel
   // Por isso, utiliza-se a funcao abaixo, com arquivos aocx
   cl_program program;
-  program = CreateProgramWithBinary(context, 1, &device_id, &binary_lenght, (const unsigned char **)&binaries, &kernel_status, &cl_error);
-  
+  //program = CreateProgramWithBinary(context, 1, &device_id, &binary_lenght, (const unsigned char **)&binaries, &kernel_status, &cl_error);
+  program = create_program_from_binary(context, file_name, &device_id, cl_num_devices,&cl_error);
   error = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 
   // Create kernels form the program
@@ -256,13 +256,13 @@ int main(void)
   error = clSetKernalArg(kernel, 2, sizeof(cl_int),   (void *) &NUM_ELEMENTS);
 
   // Run the kernel on the device
-  error = clEnqueueTask(queue, a_device, CL_TRUE, 0, NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL); 
+  error = clEnqueueTask(queue, a_device, CL_TRUE, 0, NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL);
 
 
 
 
-  
-  
+
+
   // PNG
   int img_width = nn3, img_height = nn2, img_depth = nn1;
   //srand(10);
