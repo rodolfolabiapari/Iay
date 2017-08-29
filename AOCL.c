@@ -641,4 +641,3 @@ void test_error(cl_int status, const char *error_message, void (*clean_function)
       exit(status);
    }
 }
-

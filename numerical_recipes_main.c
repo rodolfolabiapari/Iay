@@ -1,6 +1,23 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "AOCL.h"
+
+#define PLATFORM_NAME "Intel(R) FPGA"
+#define BINARY_NAME "kernel_code.aocx"
+
+cl_int status = 0;
+cl_context context     = NULL;
+cl_command_queue queue = NULL;
+cl_program program     = NULL;
+cl_kernel kernel       = NULL;
+
+// Runtime constants
+ // Used to define the work set over which this kernel will execute
+static const size_t work_group_size  = 8;
+// Defines kernel argument value, which is the workitem ID that will
+static const int thread_id_to_output = 2;
+
 //#include "nrutil.c"
 //#include "png_files.h"
 
@@ -8,6 +25,197 @@ int nn1 = 1, nn2 = 512, nn3 = 512;
 
 //float data[nn1][nn2][nn3], speq[nn1][2 * nn2];
 float data[  3][512][512], speq[  3][2 * 512];
+
+
+void cl_cleanup();
+
+////////////////////////////////////////////////////////////////
+// Fourier Functions
+////////////////////////////////////////////////////////////////
+//void fourn(float data[nn1 * nn2 * nn3], unsigned long nn[4], int ndim, int isign)
+void fourn(float data[], long nn[4], int ndim, int isign);
+
+void rlft3(int nn1, int nn2, int nn3, int isign);
+
+void random_to_float(int height, int width);
+
+//void print_float(int width, int height, float *** data);
+
+
+////////////////////////////////////////////////////////////////
+// Main Procedure
+////////////////////////////////////////////////////////////////
+int main(void)
+{
+  cl_uint num_platforms = 0;
+
+  // Starting the OpenCL for FPGA
+  // Get the first platform ID
+  cl_platform_id * platform_id;
+  platform_id = get_platforms(&num_platforms, &status);
+  test_error(status, "ERROR: Unable to find the OpenCL platform.\n", &cleanup);
+  // print some info on the selected platform
+  {
+    char* platform_info = get_platform_info(platform, CL_PLATFORM_NAME);
+    printf("%-20s = %s\n", "CL_PLATFORM_NAME", platform_info);
+    platform_info = get_platform_info(platform, CL_PLATFORM_VENDOR);
+    printf("%-20s = %s\n", "CL_PLATFORM_VENDOR", platform_info);
+    platform_info = get_platform_info(platform, CL_PLATFORM_VERSION);
+    printf("%-20s = %s\n", "CL_PLATFORM_VERSION", platform_info);
+  }
+
+  // Get all the FPGAs devices in the platform
+  cl_device_id * devices_id, device;
+  cl_uint num_devices = 0;
+  devices_id = get_devices(platform_id, CL_DEVICE_TYPE_ACCELERATOR,
+    &num_devices, &status);
+  test_error(status, "ERROR: Unable to find any device.\n", &cleanup);
+
+  device_id = devices[0];
+
+  // Create an OpenCL context for the FPGA device
+  context = clCreateContext(NULL, 1, &device_id, &ocl_context_callback_message,
+    NULL, &status);
+	test_error(status, "ERROR: Failed to open the context.\n", &cleanup);
+
+
+  // Create an OpenCl command queue
+  queue = clCreateCommandQueue(context, device_id, CL_QUEUE_PROFILING_ENABLE,
+    &status);
+	test_error(status, "ERROR: Failed to create command queue.\n", &cleanup);
+
+  // clCreateProgramWithSource Não funciona com a intel
+  // Por isso, utiliza-se a funcao abaixo, com arquivos aocx
+  program = create_program_from_binary(context, BINARY_NAME, &device_id, 1,
+    &status);
+	test_error(status, "ERROR: Failed to create the program.\n", &cleanup);
+
+  // Build the program that was just created
+  status  = clBuildProgram(program, 1, &device_id, "", NULL, NULL);
+	test_error(status, "ERROR: Failed to build the program.\n", &cleanup);
+
+
+
+  // Creates the Kernel - name passed in there must match kernel name in the
+   // original CL file, that was compiled into an AOCX file using the AOC tool
+  // Kernel name, as defined in the CL file
+  const char * kernel_name = "hello_world";
+
+  // Create kernels form the program
+  kernel = clCreateKernel(program, kernel_name, &error);
+	test_error(status, "ERROR: Failed to create the kernel.\n", &cleanup);
+
+
+
+/*
+    // Allocate and transfer buffers on/to device
+    float * a_host = ...
+    cl_mem a_device = clCreateBuffer(..., CL_MEM_COPY_HOST_PTR, a_host, ...);
+    cl_float c_host = 10.8;
+
+    error = clEnqueueWriteBuffer(queue, a_device, CL_TRUE, 0,
+      NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL);
+*/
+
+
+  // Set up the kernel argument list
+  status = clSetKernalArg(kernel, 0, sizeof(cl_mem),   (void *) &a_device);
+	test_error(status, "ERROR: Failed to set kernel arg 0.\n", &cleanup);
+  error = clSetKernalArg(kernel, 1, sizeof(cl_float), (void *) &c_host);
+  error = clSetKernalArg(kernel, 2, sizeof(cl_int),   (void *) &NUM_ELEMENTS);
+
+
+	printf("\nKernel initialization is complete.\n");
+	printf("Launching the kernel...\n\n");
+
+
+
+  // Run the kernel on the device
+  error = clEnqueueTask(queue, a_device, CL_TRUE, 0,
+    NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL);
+
+
+
+
+
+
+
+  // Memory Management - code example
+  const int N  = 5;
+  int n_bytes = N * sizeof(int);
+  int host_array [N] = {3, 1, 4, 1, 5};
+
+
+  // Allocate memory on device
+  cl_mem memory;
+  memory = clCreateBuffer(context, CL_MEM_READ_WRITE, n_bytes, NULL, &cl_error);
+
+  cl_error = clEnqueueWriteBuffer(queue, memory, CL_TRUE, 0, n_bytes,
+    host_array, 0, NULL, NULL);
+
+
+
+/*
+
+  // PNG
+  int img_width = nn3, img_height = nn2, img_depth = nn1;
+  //srand(10);
+  //const char * file_name = "lenna.png\0";
+
+  //read_png_file(& img_width, & img_height, & color_type, & bit_depth, & row_pointers);
+
+  printf("Executando f3tensor\n");
+  //data = f3tensor(1, 1, 1, img_height, 1, img_width);
+
+  printf("Executando matrix\n");
+  //speq = matrix(1, 1, 1, 2 * img_height);
+
+  //copy_png_to_float(img_height, img_width, row_pointers, data);
+  random_to_float(img_height / 2, img_width / 2);
+
+  unsigned long n [4] = {1, 512, 256};
+  //fourn(&data[1][1][1], n, 3, 1);
+  //fourn(n, 3, 1);
+
+  printf("rlft3-1\n");
+  rlft3(nn1, nn2, nn3, 1);
+
+  printf("rlft3-1\n");
+  //rlft3(data, speq, img_width, img_height, img_depth, -1);
+
+  // UNLOAD DATA AND SPEQ
+
+  printf("Freeing\n");
+  //free_matrix(speq, 1, img_width, 1, 2 * img_height);
+  //free_f3tensor(data, 1, img_width, 1, img_height, 1, img_depth);
+  //free_matrix(speq, 0, img_width, 0, 2 * img_height);
+  //free_f3tensor(data, 0, img_width, 0, img_height, 0, img_depth);
+
+*/
+
+	// Configure work set over which the kernel will execute
+	size_t wgSize[3] = { work_group_size, 1, 1 };
+	size_t gSize[3] = { work_group_size, 1, 1 };
+  
+	// Launch the kernel
+	status = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, gSize, wgSize, 0, NULL, NULL);
+	test_error(status, "ERROR: Failed to launch the kernel.\n", &cleanup);
+
+  // Wait for command queue to complete pending events
+	status = clFinish(queue);
+	test_error(status, "ERROR: Failed to finish.\n", &cleanup);
+
+	printf("\nKernel execution is complete.\n");
+
+  cleanup();
+
+  printf("\n\n");
+  return 0;
+}
+
+
+
+
 
 
 void cl_cleanup() {
@@ -191,114 +399,3 @@ void random_to_float(int height, int width)
     }
   }
 }*/
-
-
-
-
-
-////////////////////////////////////////////////////////////////
-// Main Procedure
-////////////////////////////////////////////////////////////////
-int main(void)
-{
-  int error = 0;
-  cl_int  cl_status;
-  cl_uint cl_num_platforms = 1;
-  cl_uint cl_num_devices   = 1;
-  // Starting the OpenCL for FPGA
-  // Get the first platform ID
-  cl_platform_id * platform_id = get_platforms(&cl_num_platforms, &cl_status);
-
-  // Get the first FPGA device in the platform
-  cl_device_id * device_id = get_devices(platform_id,
-    CL_DEVICE_TYPE_ACCELERATOR, &cl_num_devices, &cl_status);
-
-  // Create an OpenCL context for the FPGA device
-  cl_context context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &error);
-
-
-  // Memory Management - code example
-  const int N  = 5;
-  int n_bytes = N * sizeof(int);
-  int host_array [N] = {3, 1, 4, 1, 5};
-
-  // Create an OpenCl command queue
-  cl_command_queue queue;
-  queue = clCreateCommandQueue(context, device_id, 0, &cl_error);
-
-  // Allocate memory on device
-  cl_mem memory;
-  memory = clCreateBuffer(context, CL_MEM_READ_WRITE, n_bytes, NULL, &cl_error);
-  cl_error = clEnqueueWriteBuffer(queue, memory, CL_TRUE, 0, n_bytes, host_array, 0, NULL, NULL);
-
-
-  // clCreateProgramWithSource Não funciona com a intel
-  // Por isso, utiliza-se a funcao abaixo, com arquivos aocx
-  cl_program program;
-  //program = CreateProgramWithBinary(context, 1, &device_id, &binary_lenght, (const unsigned char **)&binaries, &kernel_status, &cl_error);
-  program = create_program_from_binary(context, file_name, &device_id, cl_num_devices,&cl_error);
-  error = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
-
-  // Create kernels form the program
-  cl_kernel kernel;
-  clCreateKernel(program, "increment", &error);
-
-  // Allocate and transfer buffers on/to device
-  float * a_host = ...
-  cl_mem a_device = clCreateBuffer(..., CL_MEM_COPY_HOST_PTR, a_host, ...);
-  cl_float c_host = 10.8;
-
-  error = clEnqueueWriteBuffer(queue, a_device, CL_TRUE, 0, NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL);
-
-  // Set up the kernel argument list
-  error = clSetKernalArg(kernel, 0, sizeof(cl_mem),   (void *) &a_device);
-  error = clSetKernalArg(kernel, 1, sizeof(cl_float), (void *) &c_host);
-  error = clSetKernalArg(kernel, 2, sizeof(cl_int),   (void *) &NUM_ELEMENTS);
-
-  // Run the kernel on the device
-  error = clEnqueueTask(queue, a_device, CL_TRUE, 0, NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL);
-
-
-
-
-
-
-  // PNG
-  int img_width = nn3, img_height = nn2, img_depth = nn1;
-  //srand(10);
-  //const char * file_name = "lenna.png\0";
-
-  //read_png_file(& img_width, & img_height, & color_type, & bit_depth, & row_pointers);
-
-  printf("Executando f3tensor\n");
-  //data = f3tensor(1, 1, 1, img_height, 1, img_width);
-
-  printf("Executando matrix\n");
-  //speq = matrix(1, 1, 1, 2 * img_height);
-
-  //copy_png_to_float(img_height, img_width, row_pointers, data);
-  random_to_float(img_height / 2, img_width / 2);
-
-  unsigned long n [4] = {1, 512, 256};
-  //fourn(&data[1][1][1], n, 3, 1);
-  //fourn(n, 3, 1);
-
-  printf("rlft3-1\n");
-  rlft3(nn1, nn2, nn3, 1);
-
-  printf("rlft3-1\n");
-  //rlft3(data, speq, img_width, img_height, img_depth, -1);
-
-  // UNLOAD DATA AND SPEQ
-
-  printf("Freeing\n");
-  //free_matrix(speq, 1, img_width, 1, 2 * img_height);
-  //free_f3tensor(data, 1, img_width, 1, img_height, 1, img_depth);
-  //free_matrix(speq, 0, img_width, 0, 2 * img_height);
-  //free_f3tensor(data, 0, img_width, 0, img_height, 0, img_depth);
-
-
-
-  printf("\n\n");
-  return 0;
-}
