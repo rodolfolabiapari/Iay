@@ -129,14 +129,9 @@ int main(void)
 	printf("Launching the kernel...\n\n");
 
 
-
   // Run the kernel on the device
   error = clEnqueueTask(queue, a_device, CL_TRUE, 0,
     NUM_ELEMENTS * sizeof(cl_float), a_host, 0, NULL, NULL);
-
-
-
-
 
 
 
@@ -156,7 +151,6 @@ int main(void)
 
 
 /*
-
   // PNG
   int img_width = nn3, img_height = nn2, img_depth = nn1;
   //srand(10);
@@ -196,7 +190,7 @@ int main(void)
 	// Configure work set over which the kernel will execute
 	size_t wgSize[3] = { work_group_size, 1, 1 };
 	size_t gSize[3] = { work_group_size, 1, 1 };
-  
+
 	// Launch the kernel
 	status = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, gSize, wgSize, 0, NULL, NULL);
 	test_error(status, "ERROR: Failed to launch the kernel.\n", &cleanup);
@@ -212,10 +206,6 @@ int main(void)
   printf("\n\n");
   return 0;
 }
-
-
-
-
 
 
 void cl_cleanup() {
