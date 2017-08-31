@@ -74,7 +74,7 @@ cl_context initialize_opencl(cl_platform_id * platform_id,
     &num_devices, &status);
   test_error(status, "ERROR: Unable to find any device.\n", &cleanup);
 
-  *device_id = (*devices_id)[0];
+  * device_id = (*devices_id)[0];
 
   // Create an OpenCL context for the FPGA device
   context = clCreateContext(NULL, 1, device_id, &ocl_context_callback_message,
@@ -100,6 +100,7 @@ int main(void)
   cl_device_id   * device_id   = 0;
   cl_platform_id * platform_id = 0;
   context = create_context(platform_id, device_id);
+
 
   // Create an OpenCl command queue
   queue = clCreateCommandQueue(context, *device_id, CL_QUEUE_PROFILING_ENABLE,
